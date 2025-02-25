@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Booking;
-use App\Contact;
-use App\Home;
+use App\Models\User;
+use App\Models\Booking;
+use App\Models\Contact;
+use App\Models\Home;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

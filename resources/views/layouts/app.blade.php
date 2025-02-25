@@ -109,70 +109,50 @@
 
     @yield('slider')
     <!-- Main header start -->
-    <header class="main-header main-header-2 main-header-3" style="background-color: #1b1e21;">
+    <header class="main-header main-header-2 main-header-3" style="background-color: #FFFFFF;">
         <!-- Top header start -->
-        <header class="top-header top-header-3 hidden-xs" id="">
-            <div class="container" style="display:block;">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
-                        <div class="list-inline">
-                            <li>
-                                <a href="https://web.facebook.com/nikelakeresort" target="_blank" class="facebook">
-                                    <i class="fa fa-facebook"></i> Facebook
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://twitter.com/nikelakeresort" target="_blank" class="twitter">
-                                    <i class="fa fa-twitter"></i> Twitter
-                                </a>
-                            </li>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
-                        <ul class="social-list clearfix pull-right">
-                            <li>
-                                <a class="sign-in" href="https://webmail-b140.web-hosting.com" target="_blank">
-                                    <i class="fa fa-envelope-o"></i> Staff Mail
-                                </a>
-                            </li>
-                            @guest
-                                <li>
-                                    <a href="{{route('login')}}" class="sign-in"><i class="fa fa-key"></i> Login</a>
-                                </li>
-                                @if (Route::has('register'))
-                                    <li>
-                                        <a href="{{route('register')}}" class="sign-in"><i class="fa fa-user-plus"></i> Register</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li>
-                                    <a class="sign-in" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> Logout</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
-                                <li>
-                                    <a @if(Auth::User()->is_admin != Null)href="{{url('/admin/home')}}" target="_blank"@else href="#" data-toggle="modal" data-target="#user_info" @endif class="sign-in"><i class="fa fa-user-circle"></i> {{ Auth::User()->first_name }} {{ Auth::User()->last_name }}</a>
-                                </li>
-                            @endguest
-                        </ul>
+       {{-- <header class="top-header top-header-3 hidden-xs" id="">
+        <div class="container" style="display:block;">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
+                    <div class="list-inline">
+                        <li>
+                            <a href="https://web.facebook.com/nikelakeresort" target="_blank" class="facebook">
+                                <i class="fa fa-facebook"></i> Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/nikelakeresort" target="_blank" class="twitter">
+                                <i class="fa fa-twitter"></i> Twitter
+                            </a>
+                        </li>
                     </div>
                 </div>
+                <div class="col-lg-6 col-md-6 col-sm-5 col-xs-12">
+                    <ul class="social-list clearfix pull-right">
+                    <li>
+                    <a href="{{route('booking')}}" class="btn-navbar btn btn-sm btn-white-sm-outline btn-round">
+                        <i class="fa fa-ticket"></i> Book Now
+                    </a>
+                </li>
+                    </ul>
+                </div>
             </div>
-        </header>
+        </div>
+    </header> --}} 
         <!-- Top header end -->
         <div class="container"  style="width:100%;">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" style="display: flex; justify-content: space-between;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navigation" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span style="color:#00c2f9;font-size:7px;position:relative;top:-6px;">MENU</span>
+                        <span style="color:#00c2f9;font-size:7px;position:relative;top:-6px;"></span>
                     </button>
                     <a href="{{ url('/') }}" class="logo">
-                        <img src="{{asset('img/logos/white-logo.png')}}" alt="logo" />
+                        <img src="{{asset('img/logos/logo.png')}}" alt="logo" />
                     </a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -224,11 +204,11 @@
                             </a>
                         </li>
 
-                        <li class="@php if (isset($page) && $page == 'blog'){echo 'active';} @endphp">
+                        {{--<li class="@php if (isset($page) && $page == 'blog'){echo 'active';} @endphp">
                             <a href="{{ url('/blog') }}" aria-expanded="false">
                                 Blog
                             </a>
-                        </li>
+                        </li>--}}
 
                         <li class="dropdown @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
                             <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
@@ -243,20 +223,6 @@
                         <li class="dropdown @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
                             <a href="{{ url('/contact') }}" aria-expanded="false">
                                 Contact Us
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" style="padding-right: 50px;">
-                        @guest
-                            <li>
-                                <a href="{{route('login')}}" class="btn-navbar btn btn-sm btn-white-sm-outline btn-round">
-                                    <i class="fa fa-arrow-circle-o-right"></i> Nike Select Login
-                                </a>
-                            </li>
-                        @endguest
-                        <li>
-                            <a href="{{route('booking')}}" class="btn-navbar btn btn-sm btn-white-sm-outline btn-round">
-                                <i class="fa fa-ticket"></i> Book Now
                             </a>
                         </li>
                     </ul>
@@ -293,12 +259,13 @@
                                 <a href="{{ url('/') }}">
                                     <img src="{{asset('img/logos/white-logo.png')}}" alt="white-logo">
                                 </a>
-                                <em style="color:#fb9b74;"> &nbsp;Where Great Minds Meet...</em>
+                                
+                            
                             </div>
                             <p>
-                                Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the
+                                Landmark Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the
                                 perfect business getaway with breathtaking views in a very secure and tranquil
-                                setting. Nike Lake Resort is a short fifteen minutes drive from the airport and only
+                                setting. Landmark Nike Lake Resort is a short fifteen minutes drive from the airport and only
                                 ten minutes from the city centre...
                             </p>
                             <p>
@@ -355,19 +322,20 @@
                             <ul class="personal-info">
                                 <li>
                                     <i class="fa fa-map-marker"></i>
-                                    Nike Lake Road, Abakpa Nike, P.M.B. 01193, Enugu state Nigeria,
+                                    <a href="https://maps.app.goo.gl/XG9mFmsjHss8qcku5" target="_blank">Nike Lake Road, Abakpa Nike, P.M.B. 01193, Enugu state Nigeria</a>
+                                    
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope"></i>
-                                    Email:<a href="mailto:info@nikelakeresorthotel.com">guestrelations@nikelakeresorthotel.com</a>
+                                    <a href="mailto:nikelakeresort@landmarkafrica.com">nikelakeresort@landmarkafrica.com</a>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    Phone 1: <a href="tel:+234 805 055 7000 ">+234 805 055 7000 </a>
+                                     <a href="tel:+234 805 055 7000 ">+234 805 055 7000 </a>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    Phone 2: <a href="tel:+234 805 755 7000">+234 805 755 7000 </a>
+                                     <a href="tel:+234 805 755 7000">+234 805 755 7000 </a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
@@ -388,9 +356,8 @@
     <!-- Copy right start -->
     <div class="copy-right">
         <div class="container">
-            &copy; @php echo date('Y'); @endphp <a href="http://osystems.com/" target="_blank">Nike Lake Resort</a>.
-            Designed
-            by O-systems.
+            &copy; @php echo date('Y'); @endphp <a href="http://osystems.com/" target="_blank">Landmark Nike Lake Resort</a>.
+            All Rights Reserved.
         </div>
     </div>
     <!-- Copy end right-->
@@ -615,7 +582,7 @@
                 </div>
                 <div class="modal-body" align="center">
                     <h1 style="color: green;"><i class="fa fa-check-circle-o"></i></h1>
-                    <p>{{session('success')}} </p>`
+                    <p> {{session('success')}} </p>`
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
@@ -731,14 +698,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" style="color: #0361b4;">
+                    <h4 class="modal-title" style="color: #262D60;">
                         <i class="fa fa-birthday-cake"></i> Conferencing &amp; Events Booking
                     </h4>
                 </div>
                 <div class="modal-body" align="center">
                     <h4 id=""><b>Contact us for your Conferences & Events Reservation</b></h4>
-                    <p><a href="tel:+2348068814994" class="btn btn-theme btn-lg"><i class="fa fa-phone"></i> +234 806 881 4994</a></p>
-                    <p><a href="https://wa.me/2348068814994" class="btn btn-theme btn-lg"><i class="fa fa-whatsapp"></i> Chat on WhatsApp</a></p>
+                    <p><a href="tel:+23408050557000" class="btn btn-theme btn-lg"><i class="fa fa-phone"></i> +234 805 055 7000</a></p>
+                    <p><a href="https://wa.me/+23408050557000" class="btn btn-theme btn-lg"><i class="fa fa-whatsapp"></i> Chat on WhatsApp</a></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

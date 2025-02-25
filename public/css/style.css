@@ -37,6 +37,38 @@ Version:    1.1.0
 -------------------------------------------------------------------*/
 /** GLOBAL CLASSES **/
 
+:root {
+    --blue: #202550;
+    --indigo: #6574cd;
+    --purple: #9561e2;
+    --pink: #f66d9b;
+    --red: #e3342f;
+    --orange: #FF8300;
+    --yellow: #ffed4a;
+    --green: #38c172;
+    --teal: #4dc0b5;
+    --cyan: #6cb2eb;
+    --white: #fff;
+    --black: #000;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #FF8300;
+    --secondary: #262D60;
+    --success: #38c172;
+    --info: #6cb2eb;
+    --warning: #ffed4a;
+    --danger: #e3342f;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: "Nunito", sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
 html, body {
     height: 100%;
 }
@@ -94,8 +126,8 @@ b, strong {
     .navbar-nav > .active > a,
     .navbar-default .navbar-nav > .active > a:focus,
     .navbar-default .navbar-nav > .active > a:hover {
-        color: #3ac4fa !important;
-        border-bottom: solid 2px #3ac4fa !important;
+        color: var(--primary) !important;
+        border-bottom: solid 2px var(--primary) !important;
     }
     .card .list-group-item{
         border-radius: 0px;
@@ -185,11 +217,11 @@ b, strong {
 
 /** SOCIAL COLOR AREA START **/
 .facebook:hover {
-    color: #3b589e !important;
+    color: var(--secondary) !important;
 }
 
 .twitter:hover {
-    color: #56d7fe !important;
+    color: var(--secondary) !important;
 }
 
 .linkedin:hover {
@@ -206,11 +238,11 @@ b, strong {
 
 /** SOCIAL BG COLOR AREA START **/
 .facebook-bg:hover {
-    background: #3b589e !important;
+    background: var(--primary) !important;
 }
 
 .twitter-bg:hover {
-    background: #56d7fe !important;
+    background: var(--primary) !important;
 }
 
 .linkedin-bg:hover {
@@ -383,10 +415,7 @@ b, strong {
 }
 
 .btn-navbar{
-    padding: 6px 20px !important;
-    margin-top: 24px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    padding: 1px 10px !important;
     border-bottom: transparent !important;
 }
 
@@ -406,7 +435,7 @@ b, strong {
 .btn-white-sm-outline {
     color: #FFF;
     background: transparent;
-    border: solid 2px #FFF !important;
+    border: solid 1px #FFF !important;
     text-transform: uppercase;
     font-weight: 600;
     padding: 5px 18px;
@@ -440,7 +469,7 @@ b, strong {
 
 
 .btn-round{
-    border-radius: 50px;
+    border-radius: 5px;
 }
 /** Solid Buttons Colors **/
 .button-default {
@@ -659,7 +688,7 @@ b, strong {
 
 .main-header-4 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    background: #f8f8f8;
+    background: var(--black);
 }
 
 .navbar-default {
@@ -678,7 +707,7 @@ b, strong {
     letter-spacing: 1px;
     background: transparent;
     text-transform: uppercase;
-    color: #fff;
+    color: var(--black);
     border-bottom: solid 2px transparent;
 }
 
@@ -947,7 +976,7 @@ b, strong {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:focus,
 .navbar-default .navbar-nav > .open > a:hover {
-    color: #e8e8e8;
+    color: var(--black);
     background: transparent;
 }
 
@@ -1065,7 +1094,7 @@ b, strong {
     left: 0%;
     padding: 0;
     bottom: 0%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex !important;
 }
 
@@ -1086,7 +1115,7 @@ b, strong {
 }
 
 .banner .banner-slider-inner h1 span {
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .banner .banner-slider-inner h2 {
@@ -1536,6 +1565,7 @@ span.flatpickr-weekday {
     font-weight: 700;
     font-size: 24px;
     margin: 0 0 5px;
+    color: var(--white);
 }
 
 /** NAV TABS START **/
@@ -1654,7 +1684,7 @@ span.flatpickr-weekday {
     color: #fff;
     top: 45%;
     font-weight: 300;
-    background: #a09d9d;
+    background: #FF8300;
     width: 35px;
     height: 35px;
     line-height: 30px;
@@ -1684,7 +1714,7 @@ span.flatpickr-weekday {
     color: #fff;
     top: 45%;
     font-weight: 300;
-    background: #a09d9d;
+    background: #FF8300;
     width: 35px;
     height: 35px;
     line-height: 30px;
@@ -1710,7 +1740,7 @@ span.flatpickr-weekday {
     top: 45%;
     left: -68px;
     font-weight: 300;
-    background: #a09d9d;
+    background: #FF8300;
     width: 30px;
     height: 30px;
     line-height: 26px;
@@ -1723,7 +1753,7 @@ span.flatpickr-weekday {
     top: 45%;
     right: 24px;
     font-weight: 300;
-    background: #a09d9d;
+    background: #FF8300;
     width: 30px;
     height: 30px;
     line-height: 26px;
@@ -4369,8 +4399,9 @@ blockquote {
 
 /** Search area box 6 **/
 .search-area-box-6{
-    background: #e6e6e6;
+    background: #FBFBFB;
     padding: 30px 0 10px;
+    border-bottom: solid 1px #e0e0e040;
 }
 
 .search-area-box-6 .form-group {
@@ -4722,7 +4753,7 @@ span.round-tab:hover i {
 }
 
 .blue-light-2-plate {
-    background: #00c2f9;
+    background: #FF8300;
 }
 
 .purple-plate {
@@ -5171,7 +5202,7 @@ span.round-tab:hover i {
     }
 
     .search-area-box-2 .search-contents .col-pad {
-        padding: 0 15px;
+        padding: 0;
     }
 
     .search-area-box-2 .search-contents .form-group {
@@ -5184,8 +5215,9 @@ span.round-tab:hover i {
     }
 
     .search-area-box-2 {
-        background: #e6e6e6;
+        background: #FBFBFB;
         padding: 30px 30px 15px;
+        border-bottom: solid 1px #e0e0e040;
     }
 
     .search-your-rooms {
@@ -5667,15 +5699,15 @@ span.round-tab:hover i {
     }
 
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
-        color: #fff;
+        color: var(--black);
     }
 
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #fff;
+        color: var(--black);
     }
 
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-        color: #555;
+        color: var(--black);
         background: #eee;
 
         border-bottom: none;

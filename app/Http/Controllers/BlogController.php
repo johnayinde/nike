@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Blog;
+use App\Models\Blog;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;

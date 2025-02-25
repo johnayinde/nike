@@ -48,13 +48,13 @@
                     <div class="about-text">
                         <!-- title -->
                         <div class="main-title-2">
-                            <h1>About Nike Lake Resort Enugu</h1>
+                            <h1>About Landmark Nike Lake Resort</h1>
                         </div>
                         <!-- paragraph -->
                         <p align="justify">
-                            Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting.
+                            Landmark Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting.
 
-                            Nike Lake Resort is a short fifteen minutes drive from the airport and only ten minutes from the city centre.<br><br>
+                            Landmark Nike Lake Resort is a short fifteen minutes drive from the airport and only ten minutes from the city centre.<br><br>
 
                             You will find at this serene resort everything you need to make your stay a memorable one. The resort has 210 well appointed rooms and suites, suitable for all tastes and budgets.
 
@@ -75,16 +75,16 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title" style="color: #0081ff;">
-                                            <i class="fa fa-building-o"></i> About Nike Lake Resort Enugu
+                                        <h4 class="modal-title" style="color: #262D60;">
+                                            <i class="fa fa-building-o"></i> About Landmark Nike Lake Resort
                                         </h4>
                                     </div>
                                     <div class="modal-body">
                                         <!-- paragraph -->
                                         <p align="left">
-                                            Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting.
+                                            Landmark Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting.
 
-                                            Nike Lake Resort is a short fifteen minutes drive from the airport and only ten minutes from the city centre.<br><br>
+                                            Landmark Nike Lake Resort is a short fifteen minutes drive from the airport and only ten minutes from the city centre.<br><br>
 
                                             You will find at this serene resort everything you need to make your stay a memorable one. The resort has 210 well appointed rooms and suites, suitable for all tastes and budgets.
 
@@ -96,7 +96,7 @@
                                             <b>City Centre:</b> We are located 10 minutes away from city centre.
                                             <br><br>
                                             <b>OUR VISION:</b> Our vision is to become a beacon to be looked upon in
-                                            the world wide hospitality industry.<br>
+                                            the world wide hospitality industry.<br><br>
 
                                             <b>OUR MISSION:</b> Our mission is to provide timely and quality service by
                                             adopting industrial best practice that creates pleasurable experience

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\URL;
-use App\Blog;
-use App\User;
+use App\Models\Blog;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;

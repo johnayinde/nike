@@ -20,7 +20,7 @@
     <!-- Sub Banner end -->
 
     <!-- Events section 2 start -->
-    <div class="events-secion-2 content-area">
+    <div class="events-secion-2 content-area" style="min-height: 60vh;">
         <div class="container">
 
             <div class="row">

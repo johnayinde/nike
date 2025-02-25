@@ -19,7 +19,7 @@
     </div>
     <!-- Sub Banner end -->
     <!-- Gallery secion start -->
-    <div class="content-area">
+    <div class="content-area" style="min-height: 60vh;">
         <div class="container">
             <div class="row">
                 {{$images->links()}}

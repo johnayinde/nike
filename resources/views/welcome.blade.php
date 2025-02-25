@@ -14,7 +14,7 @@
                             <div class="carousel-caption banner-slider-inner banner-top-align">
                                 <div class="banner-content text-center">
                                     <h1 data-animation="animated fadeInLeft delay-05s"><span>Exquisite</span> View</h1>
-                                    <p data-animation="animated fadeInLeft delay-1s">We are Nike Lake Resort</p>
+                                    <p data-animation="animated fadeInLeft delay-1s">We are Landmark Nike Lake Resort</p>
                                     <a href="{{ url('/booking') }}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                                     <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                                 </div>
@@ -57,7 +57,7 @@
                             <img src="{{asset('img/banner/banner-slider-6.jpg')}}" alt="banner-slider-1">
                             <div class="carousel-caption banner-slider-inner banner-top-align">
                                 <div class="banner-content text-center">
-                                    <h1 data-animation="animated fadeInLeft delay-05s"><span>Welcome to</span> Nike Lake Resort</h1>
+                                    <h1 data-animation="animated fadeInLeft delay-05s"><span>Welcome to</span> Landmark Nike Lake Resort</h1>
                                     <p data-animation="animated fadeInLeft delay-1s">Offering the world class hospitality with a touch of class</p>
                                     <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                                     <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
@@ -315,8 +315,8 @@
                     <div class="col-lg-6 col-lg-offset-1 col-md-6">
                         <div class="text">
                             <!-- <h5>Hotel Bayview</h5> -->
-                            <h1>Welcome To Nike Lake Resort</h1>
-                            <p>Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting. A short fifteen minutes drive from the airport and only ten minutes from the city centre. All rooms overlook the well manicured gardens or the lake and each room provides the comfort and luxury that is expected from an international three star hotel....</p>
+                            <h1>Welcome To Landmark Nike Lake Resort</h1>
+                            <p>Landmark Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the perfect business getaway with breathtaking views in a very secure and tranquil setting. A short fifteen minutes drive from the airport and only ten minutes from the city centre. All rooms overlook the well manicured gardens or the lake and each room provides the comfort and luxury that is expected from an international three star hotel....</p>
                             <br>
                             <a href="{{ url('/about') }}" class="btn btn-outline2 btn-md">View Details</a>
                             <a href="{{ url('/booking') }}" class="btn btn-theme btn-md">Book Now</a>

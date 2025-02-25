@@ -133,7 +133,7 @@
                             </div>
                             <div class="media-body">
                                 <h4>Office Address</h4>
-                                <p>Nike Lake Road, Abakpa Nike, P.M.B. 01193, Enugu state Nigeria,</p>
+                                <a href="https://maps.app.goo.gl/XG9mFmsjHss8qcku5" target="_blank">Nike Lake Road, Abakpa Nike, P.M.B. 01193, Enugu state Nigeria,</a>
                             </div>
                         </div>
                         <div class="media">
@@ -157,7 +157,7 @@
                             <div class="media-body">
                                 <h4>Email Address</h4>
                                 <p>
-                                    <a href="mailto:guestrelations@nikelakeresorthotel.com">guestrelations@nikelakeresorthotel.com</a>
+                                    <a href="mailto:nikelakeresort@landmarkafrica.com">nikelakeresort@landmarkafrica.com</a>
                                 </p>
                             </div>
                         </div>
