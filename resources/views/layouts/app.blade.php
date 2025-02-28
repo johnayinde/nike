@@ -47,7 +47,7 @@
             content: counter(row-num) ". ";
         }
     </style>
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
 </head>
 <body>
     <script src="{{asset('js/jquery-2.2.0.min.js')}}"></script>
