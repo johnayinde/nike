@@ -10,55 +10,11 @@
     </script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <!-- End Google Tag Manager -->
-    @php
-        if(isset($page) && $page == 'about'){
-            ?>
-                <title>Nike Lake Resort - About</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'rooms'){
-            ?>
-                <title>Nike Lake Resort - Rooms</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'facilities'){
-            ?>
-                <title>Nike Lake Resort - Facilities &amp; Packages</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'gallery'){
-            ?>
-                <title>Nike Lake Resort - Gallery</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'blog'){
-            ?>
-                <title>Nike Lake Resort - Blog</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'booking'){
-            ?>
-                <title>Nike Lake Resort - Booking</title>
-            <?php
-        }
-        else if(isset($page) && $page == 'contact'){
-            ?>
-                <title>Nike Lake Resort - Contact</title>
-            <?php
-        }
-        else{
-            ?>
-                <title>Nike Lake Resort - Home</title>
-            <?php
-        }
-    @endphp
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- External CSS libraries -->
+    <title>{{ config('app.name', 'Landmark Nike Lake Resort') }}</title>
+
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/animate.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-submenu.css')}}">
@@ -69,29 +25,17 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap-datepicker.min.css')}}">
 
-    <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" type="text/css" id="style_sheet" href="{{asset('css/skins/blue-light-2.css')}}">
 
-    <!-- Favicon icon -->
-    <link rel="shortcut icon" href="{{asset('img/favicon.png')}}" type="image/x-icon">
 
-    <!-- Fonts -->
+    <link rel="shortcut icon" href="{{asset('img/favicon.png')}}" type="image/x-icon">
     <link href="{{asset('https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700')}}">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css" href="{{asset('css/ie10-viewport-bug-workaround.css')}}">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script  src="{{asset('js/ie8-responsive-file-warning.js')}}"></script><![endif]-->
     <script src="{{asset('js/ie-emulation-modes-warning.js')}}"></script>
 
-    <!-- HTML5 shim and Respond.js')}} for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script  src="{{asset('js/html5shiv.min.js')}}"></script>
-    <script  src="{{asset('js/respond.min.js')}}"></script>
-    <![endif]-->
+
     <style type="text/css" media="screen">
         table {
             counter-reset: row-num 0;
@@ -103,6 +47,7 @@
             content: counter(row-num) ". ";
         }
     </style>
+    @vite('resources/css/app.css')
 </head>
 <body>
     <script src="{{asset('js/jquery-2.2.0.min.js')}}"></script>
@@ -139,7 +84,7 @@
                 </div>
             </div>
         </div>
-    </header> --}} 
+    </header> --}}
         <!-- Top header end -->
         <div class="container"  style="width:100%;">
             <nav class="navbar navbar-default" style="display: flex; justify-content: space-between;">
@@ -259,8 +204,8 @@
                                 <a href="{{ url('/') }}">
                                     <img src="{{asset('img/logos/white-logo.png')}}" alt="white-logo">
                                 </a>
-                                
-                            
+
+
                             </div>
                             <p>
                                 Landmark Nike Lake Resort is situated on the banks of Nike Lake in Enugu Nigeria. Enjoy the
@@ -323,7 +268,7 @@
                                 <li>
                                     <i class="fa fa-map-marker"></i>
                                     <a href="https://maps.app.goo.gl/XG9mFmsjHss8qcku5" target="_blank">Nike Lake Road, Abakpa Nike, P.M.B. 01193, Enugu state Nigeria</a>
-                                    
+
                                 </li>
                                 <li>
                                     <i class="fa fa-envelope"></i>
