@@ -123,7 +123,8 @@ class BookingController extends Controller
             ]);
         }
 
-        Rave::initialize(route('callback'));
+        // Rave::initialize(route('callback'));
+        return redirect('/booking')->with('success', 'Your reservation has been saved');
 
     }
 
