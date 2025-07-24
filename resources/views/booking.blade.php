@@ -666,10 +666,10 @@
             let diffDays = Math.round((end- start) / (1000 * 60 * 60 * 24));
 
             if(rooms != '' && selectedroom == 'Superior Room'){
-                document.getElementById("total_price").value = 35000*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 37500*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
@@ -688,10 +688,10 @@
 
             }
             else if(rooms != '' && selectedroom == 'Superior Room (Double)'){
-                document.getElementById("total_price").value = 35000*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (35000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 37500*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
