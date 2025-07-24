@@ -31,7 +31,7 @@
                             <h3>Superior Room</h3>
                         </div>
                         <div class="pull-right">
-                            <h3><span>&#x20A6;35,000 / Night</span></h3>
+                            <h3><span>&#x20A6;37,500 / Night</span></h3>
                         </div>
                     </div>
                     <!-- Heading courses end -->

@@ -347,13 +347,15 @@
                                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="hotel-box">
                                             <!--header -->
-                                            <div class="header clearfix">
+                                            <div class="header clearfix" style="position: relative;">
                                                 <img src="{{asset('img/room/img-1.jpg')}}" alt="img-1" class="img-responsive">
+                                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
                                             </div>
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦ 35,000<sub>/Night</sub>
+                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦75,000</div>
+                                                    ₦ 37,500 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -379,13 +381,15 @@
                                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="hotel-box">
                                             <!--header -->
-                                            <div class="header clearfix">
+                                            <div class="header clearfix" style="position: relative;">
                                                 <img src="{{asset('img/room/img-2.jpg')}}" alt="img-2" class="img-responsive">
+                                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
                                             </div>
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦65000<sub>/Night</sub>
+                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦130,000</div>
+                                                    ₦65000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -411,13 +415,15 @@
                                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="hotel-box">
                                             <!--header -->
-                                            <div class="header clearfix">
+                                            <div class="header clearfix" style="position: relative;">
                                                 <img src="{{asset('img/room/img-3.jpg')}}" alt="img-4" class="img-responsive">
+                                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
                                             </div>
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦80,000<sub>/Night</sub>
+                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦160,000</div>
+                                                    ₦80,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -443,13 +449,15 @@
                                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                         <div class="hotel-box">
                                             <!--header -->
-                                            <div class="header clearfix">
+                                            <div class="header clearfix" style="position: relative;">
                                                 <img src="{{asset('img/room/img-4.jpg')}}" alt="img-3" class="img-responsive">
+                                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
                                             </div>
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦98,000<sub>/Night</sub>
+                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦196,000</div>
+                                                    ₦98,000  / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>

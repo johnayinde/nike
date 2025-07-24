@@ -614,13 +614,13 @@
 
         function superiorFunction() {
             document.getElementById("selected_room").innerHTML = "Superior Room";
-            document.getElementById("selected_room_price").innerHTML = "35,000";
+            document.getElementById("selected_room_price").innerHTML = "37,500";
             document.getElementById("selected_room_input").value = "Superior Room";
             document.getElementById("description").value = "Superior Room";
         }
         function superior_doubleFunction() {
             document.getElementById("selected_room").innerHTML = "Superior Room (Double)";
-            document.getElementById("selected_room_price").innerHTML = "35,000";
+            document.getElementById("selected_room_price").innerHTML = "37,500";
             document.getElementById("selected_room_input").value = "Superior Room (Double)";
             document.getElementById("description").value = "Superior Room (Double)";
         }
