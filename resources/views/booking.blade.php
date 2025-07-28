@@ -27,7 +27,6 @@
                         @csrf
                         <div class="tab-content">
                             <div class="tab-pane active" role="tabpanel" id="step1">
-
                                 <!-- Search area box 2 start -->
                                 <div class="search-area-box-2 search-area-box-6">
                                     <div class="search-contents">
@@ -614,31 +613,31 @@
 
         function superiorFunction() {
             document.getElementById("selected_room").innerHTML = "Superior Room";
-            document.getElementById("selected_room_price").innerHTML = "37,500";
+            document.getElementById("selected_room_price").innerHTML = "75,000";
             document.getElementById("selected_room_input").value = "Superior Room";
             document.getElementById("description").value = "Superior Room";
         }
         function superior_doubleFunction() {
             document.getElementById("selected_room").innerHTML = "Superior Room (Double)";
-            document.getElementById("selected_room_price").innerHTML = "37,500";
+            document.getElementById("selected_room_price").innerHTML = "75,000";
             document.getElementById("selected_room_input").value = "Superior Room (Double)";
             document.getElementById("description").value = "Superior Room (Double)";
         }
         function executiveFunction() {
             document.getElementById("selected_room").innerHTML = "Executive Suite";
-            document.getElementById("selected_room_price").innerHTML = "65,000";
+            document.getElementById("selected_room_price").innerHTML = "130,000";
             document.getElementById("selected_room_input").value = "Executive Suite";
             document.getElementById("description").value = "Executive Suite";
         }
         function diplomaticFunction() {
             document.getElementById("selected_room").innerHTML = "Diplomatic Suite";
-            document.getElementById("selected_room_price").innerHTML = "80,000";
+            document.getElementById("selected_room_price").innerHTML = "160,000";
             document.getElementById("selected_room_input").value = "Diplomatic Suite";
             document.getElementById("description").value = "Diplomatic Suite";
         }
         function presidentialFunction() {
             document.getElementById("selected_room").innerHTML = "Presidential Suite";
-            document.getElementById("selected_room_price").innerHTML = "98,000";
+            document.getElementById("selected_room_price").innerHTML = "196,000";
             document.getElementById("selected_room_input").value = "Presidential Suite";
             document.getElementById("description").value = "Presidential Suite";
         }
@@ -666,10 +665,10 @@
             let diffDays = Math.round((end- start) / (1000 * 60 * 60 * 24));
 
             if(rooms != '' && selectedroom == 'Superior Room'){
-                document.getElementById("total_price").value = 37500*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 75000*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
@@ -688,10 +687,10 @@
 
             }
             else if(rooms != '' && selectedroom == 'Superior Room (Double)'){
-                document.getElementById("total_price").value = 37500*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (37500*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 75000*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (75000*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
@@ -709,10 +708,10 @@
                 document.getElementById("phone_display").innerHTML = document.getElementById("phone").value;
             }
             else if(rooms != '' && selectedroom == 'Executive Suite'){
-                document.getElementById("total_price").value = 65000*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (65000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (65000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (65000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 130000*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (130000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (130000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (130000*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
@@ -730,10 +729,10 @@
                 document.getElementById("phone_display").innerHTML = document.getElementById("phone").value;
             }
             else if(rooms != '' && selectedroom == 'Diplomatic Suite'){
-                document.getElementById("total_price").value = 80000*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (80000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (80000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (80000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 160000*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (160000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (160000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (160000*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;
@@ -751,10 +750,10 @@
                 document.getElementById("phone_display").innerHTML = document.getElementById("phone").value;
             }
             else if(rooms != '' && selectedroom == 'Presidential Suite'){
-                document.getElementById("total_price").value = 98000*rooms*diffDays;
-                document.getElementById("total_price_display").innerHTML = (98000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display2").innerHTML = (98000*rooms*diffDays).toLocaleString('en');
-                document.getElementById("total_price_display3").innerHTML = (98000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price").value = 196000*rooms*diffDays;
+                document.getElementById("total_price_display").innerHTML = (196000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display2").innerHTML = (196000*rooms*diffDays).toLocaleString('en');
+                document.getElementById("total_price_display3").innerHTML = (196000*rooms*diffDays).toLocaleString('en');
                 document.getElementById("checkin_display").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display2").innerHTML = document.getElementById("checkin_date").value;
                 document.getElementById("checkin_display3").innerHTML = document.getElementById("checkin_date").value;

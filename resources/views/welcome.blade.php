@@ -354,8 +354,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦75,000</div>
-                                                    ₦ 37,500 / Night
+                                                    ₦75,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -388,8 +387,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦130,000</div>
-                                                    ₦65000 / Night
+                                                    ₦130,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -422,8 +420,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦160,000</div>
-                                                    ₦80,000 / Night
+                                                    ₦160,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -456,8 +453,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    <div style="text-decoration: line-through; color: #ff6600; font-size: 14px;">₦196,000</div>
-                                                    ₦98,000  / Night
+                                                    ₦196,000  / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>

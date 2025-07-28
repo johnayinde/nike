@@ -31,7 +31,7 @@
                             <h3>Presidential Suite</h3>
                         </div>
                         <div class="pull-right">
-                            <h3><span>&#x20A6;98,000 / Night</span></h3>
+                            <h3><span>&#x20A6;196,000 / Night</span></h3>
                         </div>
                     </div>
                     <!-- Heading courses end -->
