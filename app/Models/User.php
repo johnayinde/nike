@@ -18,9 +18,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name', 'last_name', 'email', 'phone', 'password', 'is_admin', 'email_verified_at' //I added this 'is_admin'
     ];
 
     /**
@@ -44,5 +42,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Gallery::class);
     }
 }
