@@ -611,6 +611,63 @@
             $('#step3_button').addClass("disabled");
         }
 
+        // Centralized datepicker initialization function
+        function initializeDatepickers() {
+            // Define blocked dates (August 20-28, 2025)
+            var blockedDates = [];
+            for (var d = new Date(2025, 7, 20); d <= new Date(2025, 7, 28); d.setDate(d.getDate() + 1)) {
+                blockedDates.push(new Date(d));
+            }
+
+            function isDateBlocked(date) {
+                return blockedDates.some(function(blockedDate) {
+                    return date.getTime() === blockedDate.getTime();
+                });
+            }
+
+            // Initialize check-in datepicker
+            $('#checkin_date').datepicker('destroy').datepicker({
+                format: 'dd-mm-yyyy',
+                todayHighlight: true,
+                startDate: '+1d',
+                autoclose: true,
+                beforeShowDay: function(date) {
+                    if (isDateBlocked(date)) {
+                        return false; // Completely disable the date
+                    }
+                    return true;
+                }
+            });
+
+            // Initialize check-out datepicker
+            $('#checkout_date').datepicker('destroy').datepicker({
+                format: 'dd-mm-yyyy',
+                todayHighlight: true,
+                startDate: '+2d',
+                autoclose: true,
+                beforeShowDay: function(date) {
+                    if (isDateBlocked(date)) {
+                        return false; // Completely disable the date
+                    }
+                    return true;
+                }
+            });
+
+            // Initialize general datepicker class
+            $('.datepicker').not('#checkin_date, #checkout_date').datepicker('destroy').datepicker({
+                format: 'dd-mm-yyyy',
+                todayHighlight: true,
+                startDate: '+1d',
+                autoclose: true,
+                beforeShowDay: function(date) {
+                    if (isDateBlocked(date)) {
+                        return false; // Completely disable the date
+                    }
+                    return true;
+                }
+            });
+        }
+
         function superiorFunction() {
             document.getElementById("selected_room").innerHTML = "Superior Room";
             document.getElementById("selected_room_price").innerHTML = "75,000";
@@ -645,20 +702,6 @@
         function cost_calculator() {
             let rooms = document.getElementById("num_of_rooms").value;
             let selectedroom = document.getElementById("selected_room_input").value;
-
-            $('#checkin_date').datepicker({
-                format: 'dd-mm-yyyy',
-                todayHighlight:'TRUE',
-                startDate: '+1d',
-                autoclose: true,
-            })
-
-            $('#checkout_date').datepicker({
-                format: 'dd-mm-yyyy',
-                todayHighlight:'TRUE',
-                startDate: '+2d',
-                autoclose: true,
-            })
 
             let start = $("#checkin_date").datepicker("getDate");
             let end = $("#checkout_date").datepicker("getDate");
@@ -775,26 +818,19 @@
         function data_check() {
             let selected_room = document.getElementById("selected_room_input").value;
 
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                todayHighlight:'TRUE',
-                startDate: '+1d',
-                autoclose: true,
-            })
-
-            $('#checkin_date').datepicker({
-                format: 'dd/mm/yyyy',
-                todayHighlight:'TRUE',
-                startDate: '+1d',
-                autoclose: true,
-            })
-
             let checkin_check = document.getElementById("checkin_date").value;
             let checkout_check = document.getElementById("checkout_date").value;
 
             let checkin = $("#checkin_date").datepicker("getDate");
             let checkout = $("#checkout_date").datepicker("getDate");
             let diffDays = Math.round((checkout- checkin) / (1000 * 60 * 60 * 24));
+
+            // Function to check if date is in blocked range
+            function isDateInBlockedRange(date) {
+                var startBlocked = new Date(2025, 7, 20); // August 20, 2025
+                var endBlocked = new Date(2025, 7, 28);   // August 28, 2025
+                return date >= startBlocked && date <= endBlocked;
+            }
 
             let num_of_rooms = document.getElementById("num_of_rooms").value;
             let amount = document.getElementById("total_price").value;
@@ -806,6 +842,14 @@
             else if(checkout_check == ''){
                 $('#alert_one').modal('show');
                 document.getElementById("error_message").innerHTML = "You did not enter your Checkout Date";
+            }
+            else if(checkin && isDateInBlockedRange(checkin)){
+                $('#alert_one').modal('show');
+                document.getElementById("error_message").innerHTML = "Your selected check-in date falls within a booked period (August 20-28, 2025). Please choose a different date.";
+            }
+            else if(checkout && isDateInBlockedRange(checkout)){
+                $('#alert_one').modal('show');
+                document.getElementById("error_message").innerHTML = "Your selected check-out date falls within a booked period (August 20-28, 2025). Please choose a different date.";
             }
             else if(diffDays == 0){
                 $('#alert_one').modal('show');
@@ -942,6 +986,9 @@
         }
 
         $(document).ready(function () {
+            // Initialize datepickers with blocked dates
+            initializeDatepickers();
+            
             @guest
                 $("#prev-step1").click(function () {
                     $('#step2').hide('');

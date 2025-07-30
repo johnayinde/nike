@@ -564,5 +564,56 @@
         </div>
         <!-- Our facilties section end -->
 
+        <!-- Initialize datepickers with blocked dates -->
+        <script type="text/javascript">
+            // Centralized datepicker initialization function for search form
+            function initializeSearchDatepickers() {
+                // Define blocked dates (August 20-28, 2025)
+                var blockedDates = [];
+                for (var d = new Date(2025, 7, 20); d <= new Date(2025, 7, 28); d.setDate(d.getDate() + 1)) {
+                    blockedDates.push(new Date(d));
+                }
+
+                function isDateBlocked(date) {
+                    return blockedDates.some(function(blockedDate) {
+                        return date.getTime() === blockedDate.getTime();
+                    });
+                }
+
+                // Initialize search check-in datepicker
+                $('#searcheckin').datepicker('destroy').datepicker({
+                    format: 'dd-mm-yyyy',
+                    todayHighlight: true,
+                    startDate: '+1d',
+                    autoclose: true,
+                    beforeShowDay: function(date) {
+                        if (isDateBlocked(date)) {
+                            return false; // Completely disable the date
+                        }
+                        return true;
+                    }
+                });
+
+                // Initialize search check-out datepicker
+                $('#searcheckout').datepicker('destroy').datepicker({
+                    format: 'dd-mm-yyyy',
+                    todayHighlight: true,
+                    startDate: '+2d',
+                    autoclose: true,
+                    beforeShowDay: function(date) {
+                        if (isDateBlocked(date)) {
+                            return false; // Completely disable the date
+                        }
+                        return true;
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                // Initialize search datepickers with blocked dates
+                initializeSearchDatepickers();
+            });
+        </script>
+
     @endsection
 
