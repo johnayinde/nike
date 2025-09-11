@@ -615,5 +615,34 @@
             });
         </script>
 
+        <!-- Ad Popup Modal -->
+<div id="adModalOverlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.7); z-index:9999; display:flex; justify-content:center; align-items:center;">
+    <div id="adModalContent" style="position:relative; background:transparent; border-radius:8px; box-shadow:0 2px 16px rgba(0,0,0,0.2); display:flex; flex-direction:column; align-items:center;">
+        <button id="adModalClose" style="position:absolute; top:-18px; right:-18px; background:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:22px; color:#333; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2);">&times;</button>
+        <img src="{{ asset('img/leasing.png') }}" alt="Ad" style="max-width:90vw; max-height:80vh; border-radius:8px; box-shadow:0 2px 16px rgba(0,0,0,0.3); background:#fff; display:block; margin:auto;" />
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('#adModalOverlay').fadeIn(200);
+        }, 500);
+        // Close on close button
+        $('#adModalClose').on('click', function(e) {
+            $('#adModalOverlay').fadeOut(200);
+        });
+        // Close on clicking outside the image (on overlay only)
+        $('#adModalOverlay').on('click', function(e) {
+            if (e.target === this) {
+                $(this).fadeOut(200);
+            }
+        });
+        // Prevent click inside modal content from closing
+        $('#adModalContent').on('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+
     @endsection
 
