@@ -387,7 +387,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦130,000 / Night
+                                                    ₦150,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -420,7 +420,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦160,000 / Night
+                                                    ₦200,000 / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
@@ -453,7 +453,7 @@
                                             <!-- Detail -->
                                             <div class="detail clearfix">
                                                 <div class="pr">
-                                                    ₦196,000  / Night
+                                                    ₦300,000  / Night
                                                     <div class="rating">
                                                         <i class="fa fa-star"></i>
                                                         <i class="fa fa-star"></i>
