@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <!-- Google Tag Manager -->
     <script>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var
-            f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-N63MS48');
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var
+                f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-N63MS48');
     </script>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -40,15 +52,18 @@
         table {
             counter-reset: row-num 0;
         }
+
         table tr.tr {
             counter-increment: row-num;
         }
+
         table tr.tr td:first-child::before {
             content: counter(row-num) ". ";
         }
     </style>
     {{-- @vite('resources/css/app.css') --}}
 </head>
+
 <body>
     <script src="{{asset('js/jquery-2.2.0.min.js')}}"></script>
 
@@ -56,7 +71,7 @@
     <!-- Main header start -->
     <header class="main-header main-header-2 main-header-3" style="background-color: #FFFFFF;">
         <!-- Top header start -->
-       {{-- <header class="top-header top-header-3 hidden-xs" id="">
+        {{-- <header class="top-header top-header-3 hidden-xs" id="">
         <div class="container" style="display:block;">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-7 col-xs-12">
@@ -77,115 +92,115 @@
                     <ul class="social-list clearfix pull-right">
                     <li>
                     <a href="{{route('booking')}}" class="btn-navbar btn btn-sm btn-white-sm-outline btn-round">
-                        <i class="fa fa-ticket"></i> Book Now
-                    </a>
-                </li>
-                    </ul>
-                </div>
-            </div>
+        <i class="fa fa-ticket"></i> Book Now
+        </a>
+        </li>
+        </ul>
+        </div>
+        </div>
         </div>
     </header> --}}
-        <!-- Top header end -->
-        <div class="container"  style="width:100%;">
-            <nav class="navbar navbar-default" style="display: flex; justify-content: space-between;">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navigation" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span style="color:#00c2f9;font-size:7px;position:relative;top:-6px;"></span>
-                    </button>
-                    <a href="{{ url('/') }}" class="logo">
-                        <img src="{{asset('img/logos/logo.png')}}" alt="logo" />
-                    </a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="navbar-collapse collapse" role="navigation" aria-expanded="true" id="app-navigation">
-                    <ul class="nav navbar-nav">
-                        <li class="@php if (isset($page) && $page == 'home'){echo 'active';} @endphp">
-                            <a href="{{ url('/') }}">
-                                Home
-                            </a>
-                        </li>
-
-                        <li class="dropdown @php if (isset($page) && $page == 'about'){echo 'active';} @endphp">
-                            <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                                About Us<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ url('/about') }}">Who We Are</a></li>
-                                <li><a href="{{ url('/facilities') }}">Our Facilities</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown @php if (isset($page) && $page == 'rooms'){echo 'active';} @endphp">
-                            <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                                Rooms<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ url('/superior') }}">Superior Room (King Size Bed)</a></li>
-                                <li><a href="{{ url('/superior_double') }}">Superior Room(Double) (King Size Bed)</a></li>
-                                <li><a href="{{ url('/executive') }}">Executive Suite (King Size Bed)</a></li>
-                                <li><a href="{{ url('/diplomatic') }}">Diplomatic Suite (King Size Bed)</a></li>
-                                <li><a href="{{ url('/presidential') }}">Presidential Suite (King Size Bed)</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown @php if (isset($page) && $page == 'features'){echo 'active';} @endphp">
-                            <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                                Eventives<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ url('/conferencing') }}">Conferencing &amp; Event Venues</a></li>
-                                <li><a href="{{ url('/packages') }}">Day Delegate Packages</a></li>
-                                <li><a href="{{ url('/menus') }}">Meals &amp; Menus</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="@php if (isset($page) && $page == 'gallery'){echo 'active';} @endphp">
-                            <a href="{{ url('/gallery') }}" aria-expanded="false">
-                                Gallery
-                            </a>
-                        </li>
-
-                        {{--<li class="@php if (isset($page) && $page == 'blog'){echo 'active';} @endphp">
-                            <a href="{{ url('/blog') }}" aria-expanded="false">
-                                Blog
-                            </a>
-                        </li>--}}
-
-                        <li class="dropdown @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
-                            <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                                Book a Reservation<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a  href="{{ url('/booking') }}">Rooms &amp; Suites</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#conference">Conferencing &amp; Event</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
-                            <a href="{{ url('/contact') }}" aria-expanded="false">
-                                Contact Us
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- /.navbar-collapse -->
-                <!-- /.container -->
-            </nav>
-
-            <div class="header-search animated fadeInDown" style="width:98%;">
-                <form class="form-inline">
-                    <input type="text" class="form-control" id="searchKey" placeholder="Search...">
-                    <div class="search-btns">
-                        <button type="submit" class="btn btn-default">Search</button>
-                    </div>
-                </form>
+    <!-- Top header end -->
+    <div class="container" style="width:100%;">
+        <nav class="navbar navbar-default" style="display: flex; justify-content: space-between;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span style="color:#00c2f9;font-size:7px;position:relative;top:-6px;"></span>
+                </button>
+                <a href="{{ url('/') }}" class="logo">
+                    <img src="{{asset('img/logos/logo.png')}}" alt="logo" />
+                </a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse" role="navigation" aria-expanded="true" id="app-navigation">
+                <ul class="nav navbar-nav">
+                    <li class="@php if (isset($page) && $page == 'home'){echo 'active';} @endphp">
+                        <a href="{{ url('/') }}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="dropdown @php if (isset($page) && $page == 'about'){echo 'active';} @endphp">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            About Us<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/about') }}">Who We Are</a></li>
+                            <li><a href="{{ url('/facilities') }}">Our Facilities</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown @php if (isset($page) && $page == 'rooms'){echo 'active';} @endphp">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            Rooms<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/superior') }}">Superior Room (King Size Bed)</a></li>
+                            <li><a href="{{ url('/superior_double') }}">Superior Room(Double) (King Size Bed)</a></li>
+                            <li><a href="{{ url('/executive') }}">Executive Suite (King Size Bed)</a></li>
+                            <li><a href="{{ url('/diplomatic') }}">Diplomatic Suite (King Size Bed)</a></li>
+                            <li><a href="{{ url('/presidential') }}">Presidential Suite (King Size Bed)</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown @php if (isset($page) && $page == 'features'){echo 'active';} @endphp">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            Eventives<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/conferencing') }}">Conferencing &amp; Event Venues</a></li>
+                            <li><a href="{{ url('/packages') }}">Day Delegate Packages</a></li>
+                            <li><a href="{{ url('/menus') }}">Meals &amp; Menus</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="@php if (isset($page) && $page == 'gallery'){echo 'active';} @endphp">
+                        <a href="{{ url('/gallery') }}" aria-expanded="false">
+                            Gallery
+                        </a>
+                    </li>
+
+                    {{--<li class="@php if (isset($page) && $page == 'blog'){echo 'active';} @endphp">
+                            <a href="{{ url('/blog') }}" aria-expanded="false">
+                    Blog
+                    </a>
+                    </li>--}}
+
+                    <li class="dropdown @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
+                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
+                            Book a Reservation<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/booking') }}">Rooms &amp; Suites</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#conference">Conferencing &amp; Event</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
+                        <a href="{{ url('/contact') }}" aria-expanded="false">
+                            Contact Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- /.navbar-collapse -->
+            <!-- /.container -->
+        </nav>
+
+        <div class="header-search animated fadeInDown" style="width:98%;">
+            <form class="form-inline">
+                <input type="text" class="form-control" id="searchKey" placeholder="Search...">
+                <div class="search-btns">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
+            </form>
         </div>
+    </div>
     </header><br>
     <!-- Main header end -->
 
@@ -238,22 +253,22 @@
                                         <i class="fa fa-arrow-circle-right"></i>
                                         <a href="{{ url('/blog') }}">Blog</a>
                                     </li>
-                                    <li>
+                                    {{--<li>
                                         <i class="fa fa-arrow-circle-right"></i>
                                         <a href="{{ url('/login') }}">Login</a>
                                     </li>
                                     <li>
                                         <i class="fa fa-arrow-circle-right"></i>
                                         <a href="{{ url('/register') }}">Register</a>
-                                    </li>
+                                    </li>--}}
                                     <li>
                                         <i class="fa fa-arrow-circle-right"></i>
                                         <a href="{{ url('/booking') }}">Book Reservation</a>
                                     </li>
-                                    <li>
+                                    {{--<li>
                                         <i class="fa fa-arrow-circle-right"></i>
                                         <a href="https://webmail-b140.web-hosting.com" target="_blank">Staff Mail</a>
-                                    </li>
+                                    </li>--}}
                                 </ul>
                             </div>
                         </div>
@@ -276,19 +291,23 @@
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                     <a href="tel:+234 805 055 7000 ">+234 805 055 7000 </a>
+                                    <a href="tel:+234 805 055 7000 ">+234 805 055 7000 </a>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                     <a href="tel:+234 805 755 7000">+234 805 755 7000 </a>
+                                    <a href="tel:+234 805 755 7000">+234 805 755 7000 </a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
                             <ul class="social-list">
-                                <li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <li>
+                                    <a href="https://wa.me/2349042903777" target="_blank" class="facebook-bg"><i class="fa fa-whatsapp"></i></a>
+                                </li>
+                                <li>
                                     <a href="https://web.facebook.com/nikelakeresort" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a>
                                 </li>
-                                <li><a href="https://twitter.com/nikelakeresort" target="_blank"  class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://twitter.com/nikelakeresort" target="_blank" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://instagram.com/nikelakeresort" target="_blank" class="twitter-bg"><i class="fa fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -309,208 +328,208 @@
     @guest
 
     @else
-        <!-- Modal success -->
-        <div class="modal fade" id="user_info" role="dialog" style="z-index:100000;">
-            <div class="modal-dialog modal-lg modal-default">
+    <!-- Modal success -->
+    <div class="modal fade" id="user_info" role="dialog" style="z-index:100000;">
+        <div class="modal-dialog modal-lg modal-default">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" style="color: green;">
-                            <i class="fa fa-user-circle"></i> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-                            <div class="btn-group" role="group">
-                                <button type="button" id="following" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true" style="border-radius:0px;"></span>
-                                    <div class="hidden-xs">Profile</div>
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group" style="border-radius:0px;">
-                                <button type="button" id="stars" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="fa fa-files-o" aria-hidden="true" style="border-radius:0px;"></span>
-                                    <div class="hidden-xs">My Orders</div>
-                                </button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" id="following" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="fa fa-key" aria-hidden="true" style="border-radius:0px;"></span>
-                                    <div class="hidden-xs">Change Password</div>
-                                </button>
-                            </div>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color: green;">
+                        <i class="fa fa-user-circle"></i> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" id="following" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true" style="border-radius:0px;"></span>
+                                <div class="hidden-xs">Profile</div>
+                            </button>
                         </div>
+                        <div class="btn-group" role="group" style="border-radius:0px;">
+                            <button type="button" id="stars" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="fa fa-files-o" aria-hidden="true" style="border-radius:0px;"></span>
+                                <div class="hidden-xs">My Orders</div>
+                            </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" id="following" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="fa fa-key" aria-hidden="true" style="border-radius:0px;"></span>
+                                <div class="hidden-xs">Change Password</div>
+                            </button>
+                        </div>
+                    </div>
 
-                        <div class="well" style="border-radius:0px;">
-                            <div class="tab-content">
-                                <div class="tab-pane fade in" id="tab3">
-                                    <div class="table-responsive" style="overflow: scroll;height: 400px;">
-                                        <table class="table table-striped table-hover table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">DATE</th>
-                                                    <th scope="col">REF NUMBER</th>
-                                                    <th scope="col">DESCRIPTION</th>
-                                                    <th scope="col">CHECKIN</th>
-                                                    <th scope="col">CHECKOUT</th>
-                                                    <th scope="col">AMOUNT</th>
-                                                    <th scope="col">ORDER STATUS</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                    <div class="well" style="border-radius:0px;">
+                        <div class="tab-content">
+                            <div class="tab-pane fade in" id="tab3">
+                                <div class="table-responsive" style="overflow: scroll;height: 400px;">
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">DATE</th>
+                                                <th scope="col">REF NUMBER</th>
+                                                <th scope="col">DESCRIPTION</th>
+                                                <th scope="col">CHECKIN</th>
+                                                <th scope="col">CHECKOUT</th>
+                                                <th scope="col">AMOUNT</th>
+                                                <th scope="col">ORDER STATUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             @if($bookings)
-                                                @foreach($bookings as $booking)
-                                                    <tr class="tr">
-                                                        <td></td>
-                                                        <td>{{$booking->created_at->format('d/m/Y')}}</td>
-                                                        <td>{{$booking->raveref}}</td>
-                                                        <td>{{$booking->num_of_rooms}} {{$booking->room}}</td>
-                                                        <td>{{date("d/m/Y", strtotime($booking->checkin))}}</td>
-                                                        <td>{{date("d/m/Y", strtotime($booking->checkout))}}</td>
-                                                        <td>&#x20A6; {{number_format($booking->amount)}}</td>
-                                                        <td>{{$booking->order_status}}</td>
-                                                    </tr>
-                                                @endforeach
+                                            @foreach($bookings as $booking)
+                                            <tr class="tr">
+                                                <td></td>
+                                                <td>{{$booking->created_at->format('d/m/Y')}}</td>
+                                                <td>{{$booking->raveref}}</td>
+                                                <td>{{$booking->num_of_rooms}} {{$booking->room}}</td>
+                                                <td>{{date("d/m/Y", strtotime($booking->checkin))}}</td>
+                                                <td>{{date("d/m/Y", strtotime($booking->checkout))}}</td>
+                                                <td>&#x20A6; {{number_format($booking->amount)}}</td>
+                                                <td>{{$booking->order_status}}</td>
+                                            </tr>
+                                            @endforeach
                                             @endif
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="tab-pane fade in active" id="tab1">
-                                    <form method="post" action="{{route('update_profile')}}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <div class="row search-your-details">
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="text" name="fname" required disabled id="profile_fname" class="btn-default form-control" placeholder="First Name" value="{{Auth::User()->first_name}}">
-                                                        </div>
+                            </div>
+                            <div class="tab-pane fade in active" id="tab1">
+                                <form method="post" action="{{route('update_profile')}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="row search-your-details">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" name="fname" required disabled id="profile_fname" class="btn-default form-control" placeholder="First Name" value="{{Auth::User()->first_name}}">
                                                     </div>
-                                                    @error('fname')
-                                                        <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                        <script !src="">
-                                                            $(document).ready(function(){
-                                                                $("#profile_fname").css("border", "1px red solid");
-                                                            });
-                                                        </script>
+                                                </div>
+                                                @error('fname')
+                                                <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                <script !src="">
+                                                    $(document).ready(function() {
+                                                        $("#profile_fname").css("border", "1px red solid");
+                                                    });
+                                                </script>
+                                                @enderror
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" name="lname" required disabled id="profile_lname" class="btn-default form-control" placeholder="Last Name" value="{{Auth::User()->last_name}}">
+                                                    </div>
+                                                    @error('lname')
+                                                    <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    <script !src="">
+                                                        $(document).ready(function() {
+                                                            $("#profile_lname").css("border", "1px red solid");
+                                                        });
+                                                    </script>
                                                     @enderror
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="text" name="lname" required disabled id="profile_lname" class="btn-default form-control" placeholder="Last Name" value="{{Auth::User()->last_name}}">
-                                                        </div>
-                                                        @error('lname')
-                                                            <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            <script !src="">
-                                                                $(document).ready(function(){
-                                                                    $("#profile_lname").css("border", "1px red solid");
-                                                                });
-                                                            </script>
-                                                        @enderror
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="email" name="email" required disabled id="profile_email" class="btn-default form-control" placeholder="Email" value="{{Auth::User()->email}}">
                                                     </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="email" name="email" required disabled id="profile_email" class="btn-default form-control" placeholder="Email" value="{{Auth::User()->email}}">
-                                                        </div>
-                                                        @error('email')
-                                                            <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            <script !src="">
-                                                                $(document).ready(function(){
-                                                                    $("#profile_email").css("border", "1px red solid");
-                                                                });
-                                                            </script>
-                                                        @enderror
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    <script !src="">
+                                                        $(document).ready(function() {
+                                                            $("#profile_email").css("border", "1px red solid");
+                                                        });
+                                                    </script>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="text" name="phone" required disabled id="profile_phone" class="btn-default form-control" placeholder="Phone" value="{{Auth::User()->phone}}">
                                                     </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="text" name="phone" required disabled id="profile_phone" class="btn-default form-control" placeholder="Phone" value="{{Auth::User()->phone}}">
-                                                        </div>
-                                                        @error('phone')
-                                                            <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                                        <strong>{{ $message }}</strong>
-                                                                    </span>
-                                                            <script !src="">
-                                                                $(document).ready(function(){
-                                                                    $("#profile_phone").css("border", "1px red solid");
-                                                                });
-                                                            </script>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <div class="form-group">
-                                                            <button type="button" onclick="enableFunction()" class="search-button btn-theme" id="edit_profile">Cick Here to Edit Profile</button>
-                                                            <button type="submit" class="search-button btn-theme" id="save_changes">Save Changes</button>
-                                                        </div>
+                                                    @error('phone')
+                                                    <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    <script !src="">
+                                                        $(document).ready(function() {
+                                                            $("#profile_phone").css("border", "1px red solid");
+                                                        });
+                                                    </script>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <button type="button" onclick="enableFunction()" class="search-button btn-theme" id="edit_profile">Cick Here to Edit Profile</button>
+                                                        <button type="submit" class="search-button btn-theme" id="save_changes">Save Changes</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="tab-pane fade in" id="tab2">
-                                    <form method="post" action="{{route('password')}}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <div class="row search-your-details">
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="password" name="password" required id="new_password" class="btn-default form-control" placeholder="Enter New Password" value="" minlength="8">
-                                                        </div>
-                                                        @error('new_password')
-                                                            <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            <script !src="">
-                                                                $(document).ready(function(){
-                                                                    $("#new_password").css("border", "1px red solid");
-                                                                });
-                                                            </script>
-                                                        @enderror
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade in" id="tab2">
+                                <form method="post" action="{{route('password')}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="row search-your-details">
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="password" name="password" required id="new_password" class="btn-default form-control" placeholder="Enter New Password" value="" minlength="8">
                                                     </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <div class="form-group">
-                                                            <input type="password" name="password_confirmation" required id="c_new_password" class="btn-default form-control" placeholder="Enter Password Again" value="" minlength="8">
-                                                        </div>
-                                                        @error('c_new_password')
-                                                            <span class="invalid-feedback" role="alert" style="color: #d70303;">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                            <script !src="">
-                                                                $(document).ready(function(){
-                                                                    $("#c_new_password").css("border", "1px red solid");
-                                                                });
-                                                            </script>
-                                                        @enderror
+                                                    @error('new_password')
+                                                    <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    <script !src="">
+                                                        $(document).ready(function() {
+                                                            $("#new_password").css("border", "1px red solid");
+                                                        });
+                                                    </script>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-6 col-sm-12">
+                                                    <div class="form-group">
+                                                        <input type="password" name="password_confirmation" required id="c_new_password" class="btn-default form-control" placeholder="Enter Password Again" value="" minlength="8">
                                                     </div>
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="search-button btn-theme" id="save_pwd">Save Changes</button>
-                                                        </div>
+                                                    @error('c_new_password')
+                                                    <span class="invalid-feedback" role="alert" style="color: #d70303;">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    <script !src="">
+                                                        $(document).ready(function() {
+                                                            $("#c_new_password").css("border", "1px red solid");
+                                                        });
+                                                    </script>
+                                                    @enderror
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="search-button btn-theme" id="save_pwd">Save Changes</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-        <!--modal close-->
+    </div>
+    <!--modal close-->
     @endguest
 
     <!-- Modal success -->
@@ -680,9 +699,8 @@
     <!-- Custom javascript -->
 
     <script type="text/javascript">
-
         var width = $(window).width();
-        $(document).ready(function(){
+        $(document).ready(function() {
             if (width < 768) {
                 $('.navbar-collapse').css("background-color", "#000");
                 //alert('d');
@@ -694,7 +712,7 @@
 
 
         $(document).ready(function() {
-            $(".btn-pref .btn").click(function () {
+            $(".btn-pref .btn").click(function() {
                 $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
                 // $(".tab").addClass("active"); // instead of this do the below
                 $(this).removeClass("btn-default").addClass("btn-primary");
@@ -703,54 +721,50 @@
 
         $('#searcheckout').datepicker({
             format: 'dd-mm-yyyy',
-            todayHighlight:'TRUE',
+            todayHighlight: 'TRUE',
             startDate: '+2d',
             autoclose: true,
         })
         $('#searcheckin').datepicker({
             format: 'dd-mm-yyyy',
-            todayHighlight:'TRUE',
+            todayHighlight: 'TRUE',
             startDate: '+1d',
             autoclose: true,
         })
 
         $('#checkin_date').datepicker({
             format: 'dd-mm-yyyy',
-            todayHighlight:'TRUE',
+            todayHighlight: 'TRUE',
             startDate: '+1d',
             autoclose: true
         })
 
-        $('#searchnow').click(function(){
+        $('#searchnow').click(function() {
             let checkin = $("#searcheckin").datepicker("getDate");
 
             let checkout = $("#searcheckout").datepicker("getDate");
-            let diffDaysm = Math.round((checkout-checkin) / (1000 * 60 * 60 * 24));
+            let diffDaysm = Math.round((checkout - checkin) / (1000 * 60 * 60 * 24));
 
-            if(checkin == ''){
+            if (checkin == '') {
                 $('#alert_one').modal('show');
                 document.getElementById("error_message").innerHTML = "You did not enter your Checkin Date";
                 return false
-            }
-            else if(checkout == ''){
+            } else if (checkout == '') {
                 $('#alert_one').modal('show');
                 document.getElementById("error_message").innerHTML = "You did not enter your Checkout Date";
                 return false
-            }
-            else if(diffDaysm == 0){
+            } else if (diffDaysm == 0) {
                 $('#alert_one').modal('show');
                 document.getElementById("error_message").innerHTML = "Your Checkin Date cannot be same with your " +
                     "Checkout Date";
                 return false
-            }
-            else if(diffDaysm < 0){
+            } else if (diffDaysm < 0) {
                 $('#alert_one').modal('show');
                 document.getElementById("error_message").innerHTML = "Your Checkin Date cannot come after your " +
                     "Checkout Date";
                 return false
             }
         });
-
     </script>
 
     <script>
@@ -765,11 +779,11 @@
             document.getElementById("profile_phone").disabled = false;
         }
 
-        var password = document.getElementById("new_password")
-            , confirm_password = document.getElementById("c_new_password");
+        var password = document.getElementById("new_password"),
+            confirm_password = document.getElementById("c_new_password");
 
-        function validatePassword(){
-            if(password.value != confirm_password.value) {
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
                 confirm_password.setCustomValidity("Passwords Don't Match");
             } else {
                 confirm_password.setCustomValidity('');
@@ -778,18 +792,16 @@
 
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
-
     </script>
 
     @if($errors->has('email') || $errors->has('password')))
     <script type="text/javascript" charset="utf-8" async defer>
-        if(document.getElementById("email_msg").innerHTML != 'The email has already been taken.' ){
-            $(window).load(function(){
+        if (document.getElementById("email_msg").innerHTML != 'The email has already been taken.') {
+            $(window).load(function() {
                 $("#login_modal").modal("show");
                 $("#email_msg").hide();
             });
-        }
-        else{
+        } else {
             $('#step2').show('');
             $('#step1').hide('');
             $('#step2_button').removeClass("disabled");
@@ -800,45 +812,46 @@
     @endif
 
     @if(session()->has('modal_id'))
-        <script type="text/javascript" charset="utf-8" async defer>
-            $(window).load(function(){
-                $("#{{Session::get('modal_id')}}").modal("show");
-            });
-        </script>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(window).load(function() {
+            $("#{{Session::get('modal_id')}}").modal("show");
+        });
+    </script>
     @endif
 
     @if(session()->has('success'))
-        <script type="text/javascript" charset="utf-8" async defer>
-            $(document).ready(function(){
-                $("#success_modal").modal("show");
-            });
-        </script>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(document).ready(function() {
+            $("#success_modal").modal("show");
+        });
+    </script>
     @endif
 
     @if(session()->has('updated'))
-        <script type="text/javascript" charset="utf-8" async defer>
-            $(document).ready(function(){
-                $("#update_modal").modal("show");
-            });
-        </script>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(document).ready(function() {
+            $("#update_modal").modal("show");
+        });
+    </script>
     @endif
 
     @if(session()->has('nothing'))
-        <script type="text/javascript" charset="utf-8" async defer>
-            $(document).ready(function(){
-                $("#nothing").modal("show");
-            });
-        </script>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(document).ready(function() {
+            $("#nothing").modal("show");
+        });
+    </script>
     @endif
     @if(session()->has('something'))
-        <script type="text/javascript" charset="utf-8" async defer>
-            $(document).ready(function(){
-                $("#something").modal("show");
-            });
-        </script>
+    <script type="text/javascript" charset="utf-8" async defer>
+        $(document).ready(function() {
+            $("#something").modal("show");
+        });
+    </script>
     @endif
 
     <script id="dsq-count-scr" src="//nikelakeresorthotel-com.disqus.com/count.js" async></script>
 
-    </body>
+</body>
+
 </html>

@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                {{--<div class="col-md-6 col-xs-12">
                     <div class="events-box">
                         <div class="events-box-content">
                             <h1><a href="#">Well Equipped Gym</a></h1>
@@ -57,7 +57,7 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </div>--}}
                 <div class="col-md-6 col-xs-12">
                     <div class="events-box">
                         <div class="events-box-content">

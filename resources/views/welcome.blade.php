@@ -489,7 +489,7 @@
                     <!-- Main title -->
                     <div class="main-title">
                         <h1>Our Facilties</h1>
-                        <p>Check out our hotel facilties </p>
+                        <p>At Landmark Nike Lake Resort, every detail is designed to make your stay effortless, relaxing, and unforgettable. From sunrise to sunset, and every moment in between, you’ll find comfort, convenience, and care at every turn.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
@@ -499,18 +499,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h3>24-hour Electricity</h3>
-                                    <p>At Nike Lake Resort, our visitors enjoy uninterrupted power supply with a standby power generator</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
-                            <div class="services-box-2 media">
-                                <div class="media-left">
-                                    <i class="flaticon-room-service"></i>
-                                </div>
-                                <div class="media-body">
-                                    <h3>Room Service</h3>
-                                    <p>We offer the best room service with our friendly and skilled staff to attend to your needs 24/7</p>
+                                    <p>Your comfort never pauses here. With constant power and standby generators, every moment remains, uninterrupted.</p>
                                 </div>
                             </div>
                         </div>
@@ -521,11 +510,11 @@
                                 </div>
                                 <div class="media-body">
                                     <h3>Friendly Cost</h3>
-                                    <p>Our well furnished rooms are offered at affordable, pocket friendly prices to suite your needs and assure your comfort</p>
+                                    <p>Beautifully furnished  rooms, plush bedding, and thoughtful amenities, all at rates that let you enjoy more, for less.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
+                        {{--<div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
                             <div class="services-box-2 media">
                                 <div class="media-left">
                                     <i class="flaticon-weightlifting"></i>
@@ -535,7 +524,7 @@
                                     <p>We have well equipped gyms to keep you fit at all times, our gyms are easily accessible to all guests</p>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
                         <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
                             <div class="services-box-2 media">
                                 <div class="media-left">
@@ -543,7 +532,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h3>Free Parking</h3>
-                                    <p>We have lots and lots of parking space for our guests, you do not have to worry as our parking space is totally free</p>
+                                    <p>Stress-Free Parking. Our secure, spacious parking is always available, at no extra cost, so you can focus on your getaway.</p>
                                 </div>
                             </div>
                         </div>
@@ -554,7 +543,18 @@
                                 </div>
                                 <div class="media-body">
                                     <h3>Free Wi-Fi</h3>
-                                    <p>We have very fast internet connection for our guest who may be needing internet connection, our supply is uninterrupted</p>
+                                    <p>Stay Connected, Whether you’re sharing memories with loved ones or handling business on the go, our high-speed Wi-Fi keeps you connected everywhere in the resort, without interruptions.</p>
+                                </div>
+                            </div>
+                        </div>
+                                                <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
+                            <div class="services-box-2 media">
+                                <div class="media-left">
+                                    <i class="flaticon-room-service"></i>
+                                </div>
+                                <div class="media-body">
+                                    <h3>Room Service</h3>
+                                    <p>Why step out when comfort can come to you? Our warm, attentive team is at your service 24/7, ready to deliver meals, refreshments, or any special request right to your door.</p>
                                 </div>
                             </div>
                         </div>
@@ -562,7 +562,179 @@
                 </div>
             </div>
         </div>
-        <!-- Our facilties section end -->
+                <!-- Our facilties section end -->
+
+        <!-- Landmark Locations section start -->
+        <div class="landmark-locations-section content-area-3" style="background-color: #f8f9fa; padding: 80px 0;">
+            <div class="container">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>Landmark Locations</h1>
+                    <p>Landmark is more than just Landmark Nike Lake Resort — you can also experience our signature blend of business, leisure, and lifestyle across multiple destinations.</p>
+                </div>
+                <div class="row">
+                    <!-- Landmark Lagos -->
+                    <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
+                        <div class="location-card" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px; overflow: hidden;">
+                            <div class="location-image" style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="{{asset('img/lagos.jpg')}}" alt="Landmark Lagos" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
+                            </div>
+                            <div class="location-content" style="padding: 20px;">
+                                <h3 style="color: #333; margin-bottom: 10px; font-size: 20px;">Landmark Lagos</h3>
+                                <div class="status-badge" style="background: #28a745; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; display: inline-block; margin-bottom: 10px;">
+                                    Opened and fully operating
+                                </div>
+                                <p style="color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 15px;">
+                                    Experience luxury and comfort in the heart of Lagos. Our flagship location offers world-class amenities and exceptional service in Nigeria's commercial capital.
+                                </p>
+                                <a href="https://www.landmarkafrica.com/locations/Landmark%20Lagos" class="btn btn-theme btn-sm" target="_blank">Visit Website</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Landmark Port Harcourt -->
+                    <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-08s">
+                        <div class="location-card" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px; overflow: hidden;">
+                            <div class="location-image" style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="https://landmark-assets-bucket.s3.eu-central-1.amazonaws.com/lma_website/location/cover_image/01JMHWDYWMTEHV71HVNK3TSDER.jpg" alt="Landmark Port Harcourt" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
+                            </div>
+                            <div class="location-content" style="padding: 20px;">
+                                <h3 style="color: #333; margin-bottom: 10px; font-size: 20px;">Landmark Port Harcourt</h3>
+                                <div class="status-badge" style="background: #ffc107; color: #333; padding: 5px 12px; border-radius: 15px; font-size: 12px; display: inline-block; margin-bottom: 10px;">
+                                    Coming soon
+                                </div>
+                                <p style="color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 15px;">
+                                    Get ready for the Landmark experience in the Garden City. Our Port Harcourt location will bring the same luxury and excellence you expect from the Landmark brand.
+                                </p>
+                                <button class="btn btn-outline2 btn-sm" disabled>Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Landmark Abia -->
+                    <div class="col-md-4 col-sm-6 col-xs-12 wow fadeInUp delay-12s">
+                        <div class="location-card" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); margin-bottom: 30px; overflow: hidden;">
+                            <div class="location-image" style="position: relative; height: 200px; overflow: hidden;">
+                                <img src="https://landmark-assets-bucket.s3.eu-central-1.amazonaws.com/lma_website/eco_system/lagos_event_center.webp" alt="Landmark Abia" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3);"></div>
+                            </div>
+                            <div class="location-content" style="padding: 20px;">
+                                <h3 style="color: #333; margin-bottom: 10px; font-size: 20px;">Landmark Abia</h3>
+                                <div class="status-badge" style="background: #ffc107; color: #333; padding: 5px 12px; border-radius: 15px; font-size: 12px; display: inline-block; margin-bottom: 10px;">
+                                    Coming soon
+                                </div>
+                                <p style="color: #666; font-size: 14px; line-height: 1.5; margin-bottom: 15px;">
+                                    Discover the upcoming Landmark experience in Abia State. We're bringing our renowned hospitality and premium amenities to this vibrant location.
+                                </p>
+                                <button class="btn btn-outline2 btn-sm" disabled>Coming Soon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom message -->
+                <div class="row">
+                    <div class="col-md-12 text-center" style="margin-top: 30px;">
+                        <div style="background: linear-gradient(135deg, #ffffff 0%, #e9e9e9 100%); color: black; padding: 25px; border-radius: 10px; display: inline-block;">
+                            <h4 style="margin: 0; font-weight: 600;">And that's just the beginning!</h4>
+                            <p style="margin: 10px 0 0; font-size: 16px;">We're bringing Landmark to even more cities near you!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Landmark Locations section end -->
+
+        <!-- Things To Do section start -->
+        <div class="things-to-do-section content-area-3" style="background-color: #ffffff; padding: 80px 0;">
+            <div class="container">
+                <!-- Main title -->
+                <div class="main-title">
+                    <h1>Things To Do At Landmark Nike Lake Resort</h1>
+                    <p>Discover endless ways to relax, explore, and create unforgettable memories during your stay with us.</p>
+                </div>
+                <div class="row">
+                    <!-- Boat Rides -->
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-04s">
+                        <div class="services-box-2 media" style="margin-bottom: 40px;">
+                            <div class="media-left">
+                                <i class="fa fa-ship" style="font-size: 2.5em; color: #4a90e2; background: rgba(74, 144, 226, 0.1); padding: 20px; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3>Boat Rides</h3>
+                                <p>Hop on a boat and just let the water carry you. It's one of those simple joys you never forget.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pool Time -->
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-08s">
+                        <div class="services-box-2 media" style="margin-bottom: 40px;">
+                            <div class="media-left">
+                                <i class="fa fa-tint" style="font-size: 2.5em; color: #00bcd4; background: rgba(0, 188, 212, 0.1); padding: 20px; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3>Pool Time</h3>
+                                <p>Dip your toes, dive right in, or lounge with a drink by your side—it's your call.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kids' Area -->
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-12s">
+                        <div class="services-box-2 media" style="margin-bottom: 40px;">
+                            <div class="media-left">
+                                <i class="fa fa-child" style="font-size: 2.5em; color: #ff6b6b; background: rgba(255, 107, 107, 0.1); padding: 20px; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3>Kids' Area</h3>
+                                <p>The kids get their own little world to play and laugh, while you get a moment to breathe.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Walking Trails -->
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-16s">
+                        <div class="services-box-2 media" style="margin-bottom: 40px;">
+                            <div class="media-left">
+                                <i class="fa fa-tree" style="font-size: 2.5em; color: #4caf50; background: rgba(76, 175, 80, 0.1); padding: 20px; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3>Walking Trails</h3>
+                                <p>Take a slow walk, listen to the birds, and let the fresh air do the rest.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Picnic -->
+                    <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInUp delay-20s">
+                        <div class="services-box-2 media text-start" style="margin-bottom: 40px;">
+                            <div class="media-left" style="margin: 0 auto; float: none;">
+                                <i class="fa fa-cutlery" style="font-size: 2.5em; color: #ff9800; background: rgba(255, 152, 0, 0.1); padding: 20px; border-radius: 50%; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;"></i>
+                            </div>
+                            <div class="media-body">
+                                <h3>Picnic</h3>
+                                <p style="max-width: 600px; margin: 0 auto;">Spread out a blanket, unpack your favourites, and just enjoy being together.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="row">
+                    <div class="col-md-12 text-center" style="margin-top: 40px;">
+                        <div style="background: linear-gradient(135deg, #ffffff 0%, #e9e9e9 100%); padding: 30px; border-radius: 10px;">
+                            <h4 style="color: #333; margin-bottom: 15px;">Ready to Create Memories?</h4>
+                            <p style="color: #666; margin-bottom: 20px;">Book your stay today and experience all these amazing activities and more!</p>
+                            <a href="{{ url('/booking') }}" class="btn btn-theme btn-lg">Book Your Stay Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Things To Do section end -->
 
         <!-- Initialize datepickers with blocked dates -->
         <script type="text/javascript">
