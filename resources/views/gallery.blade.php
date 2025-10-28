@@ -27,7 +27,7 @@
                     @foreach ($images as $image)
                         <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12  filtr-item" data-category="3, 2, 1, 4">
                             <figure class="portofolio-thumb">
-                                <a href="#" data-toggle="modal" data-target="#{{$image->id}}"><img style="object-fit: cover;" width="360px" height="300px" src="{{asset('storage/'.$image->image)}}" alt="{{$image->title}}"></a>
+                                <a href="#" data-toggle="modal" data-target="#{{$image->id}}"><img style="object-fit: cover;" width="360px" height="300px" src="{{$image->image}}" alt="{{$image->title}}"></a>
                                 <figcaption>
                                     <div class="figure-content">
                                         <h3 class="title">{{$image->title}}</h3>

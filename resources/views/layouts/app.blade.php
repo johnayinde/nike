@@ -304,10 +304,10 @@
                                     <a href="https://wa.me/2349042903777" target="_blank" class="facebook-bg"><i class="fa fa-whatsapp"></i></a>
                                 </li>
                                 <li>
-                                    <a href="https://web.facebook.com/nikelakeresort" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                                    <a href="https://www.facebook.com/Nikelakeresortenugu/" target="_blank" class="facebook-bg"><i class="fa fa-facebook"></i></a>
                                 </li>
-                                <li><a href="https://twitter.com/nikelakeresort" target="_blank" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="https://instagram.com/nikelakeresort" target="_blank" class="twitter-bg"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://x.com/nikelakeresort_?s=21" target="_blank" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com/landmarknikelakeresort?igsh=MXc4djlrOXV0eTcxdQ%3D%3D&utm_source=qr" target="_blank" class="twitter-bg"><i class="fa fa-instagram"></i></a></li>
                             </ul>
                         </div>
                     </div>
