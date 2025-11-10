@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\User;
+use App\Services\EmailService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use KingFlamez\Rave\Facades\Rave;
@@ -14,10 +15,10 @@ use Carbon\Carbon;
 
 class BookingController extends Controller
 {
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
+    //    public function __construct()
+    //    {
+    //        $this->middleware('auth');
+    //    }
 
     /**
      * Display a listing of the resource.
@@ -36,7 +37,7 @@ class BookingController extends Controller
      */
     public function initialize(Request $request)
     {
-        if(isset(Auth::User()->id)){
+        if (isset(Auth::User()->id)) {
 
             $request->validate([
                 'selected_room_input' => ['required', 'string', 'max:22', 'min:13'],
@@ -45,8 +46,7 @@ class BookingController extends Controller
                 'checkout' => ['required', 'string', 'max:255'],
                 'num_of_rooms' => ['required', 'string', 'max:255'],
             ]);
-        }
-        else{
+        } else {
             $request->validate([
                 'selected_room_input' => ['required', 'string', 'max:22', 'min:13'],
                 'amount' => ['required', 'string', 'max:255'],
@@ -57,23 +57,23 @@ class BookingController extends Controller
                 'lastname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'phonenumber' => ['required', 'min:10', 'max:20'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'user_password' => ['nullable','string', 'min:8'],
+                'user_password' => ['nullable', 'string', 'min:8'],
             ]);
         }
 
 
         $data = request()->all();
 
-        $date=date("Y-m-d");
-        $time=date("h:i:s");
+        $date = date("Y-m-d");
+        $time = date("h:i:s");
         $payment_status = 'Unpaid';
-        $now = $date.' '.$time;
+        $now = $date . ' ' . $time;
         $order_status = 'Failed';
         $posted = 'No';
         $checkin = strtotime($data['checkin']);
         $checkout = strtotime($data['checkout']);
 
-        $result = Booking::where('room','=',$data['selected_room_input'])->where('checkin','<=',$checkin)->where('checkout','>=',$checkin)->where('checkout','>=',$checkout)->where('checkin','<=',$checkout)->where('order_status','=','Successful')->count();
+        $result = Booking::where('room', '=', $data['selected_room_input'])->where('checkin', '<=', $checkin)->where('checkout', '>=', $checkin)->where('checkout', '>=', $checkout)->where('checkin', '<=', $checkout)->where('order_status', '=', 'Successful')->count();
 
 
         if($data['selected_room_input'] == 'Superior Room' && (188 - $result) <  $data['num_of_rooms']){
@@ -81,8 +81,7 @@ class BookingController extends Controller
         }
         elseif($data['selected_room_input'] == 'Superior Room (Double)' && (10 - $result) <  $data['num_of_rooms']){
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        }
-        elseif($data['selected_room_input'] == 'Executive Suite' && (9 - $result) <  $data['num_of_rooms']){
+        } elseif ($data['selected_room_input'] == 'Executive Suite' && (9 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
         }
         elseif($data['selected_room_input'] == 'Diplomatic Suite' && (2 - $result) <  $data['num_of_rooms']){
@@ -108,6 +107,7 @@ class BookingController extends Controller
                 $user_id = User::where('email', '=', $data['email'])->first()->id;
             }
 
+            // Create booking
             Booking::create([
                 'user_id' => $user_id,
                 'room' => $data['selected_room_input'],
@@ -121,11 +121,41 @@ class BookingController extends Controller
                 'posted' => $posted,
                 'ref_num' => $data['ref'],
             ]);
+
+            $emailData = [
+                'guest_name' => $user->first_name . ' ' . $user->last_name,
+                'guest_email' => $user->email,
+                'guest_phone' => $user->phone,
+                'room' => $data['selected_room_input'],
+                'num_of_rooms' => $data['num_of_rooms'],
+                'checkin' => $data['checkin'],
+                'checkout' => $data['checkout'],
+                'amount' => $data['amount'],
+                'payment_status' => $payment_status,
+                'ref_num' => $data['ref'],
+                'created_at' => $now,
+                'admin_dashboard_url' => url('/admin/bookings'),
+            ];
+
+            $emailService = new EmailService();
+
+            $emailService->sendEmail(
+                $user->email,
+                'BookingConfirmation',
+                $emailData
+            );
+
+
+            $adminEmail = env('ADMIN_EMAIL', 'lolaayinde@gmail.com');
+            $emailService->sendEmail(
+                $adminEmail,
+                'AdminBookingNotification',
+                $emailData
+            );
         }
 
         // Rave::initialize(route('callback'));
         return redirect('/booking')->with('success', 'Your reservation has been saved');
-
     }
 
     /**
@@ -135,7 +165,8 @@ class BookingController extends Controller
     public function callback(Request $request)
     {
 
-        $resp = $request->resp; $body = json_decode($resp, true);
+        $resp = $request->resp;
+        $body = json_decode($resp, true);
         $txRef = $body['data']['data']['txRef'];
         $data = Rave::verifyTransaction($txRef);
 
@@ -153,7 +184,7 @@ class BookingController extends Controller
         $payee_email = $payment[0]->user->email;
         $stored_amount = $payment[0]->amount;
 
-        if (($chargeResponsecode == "00" || $chargeResponsecode == "0")&& ($paymentEmail == $payee_email) && ($chargeAmount == $stored_amount)  && ($chargeCurrency == "NGN")) {
+        if (($chargeResponsecode == "00" || $chargeResponsecode == "0") && ($paymentEmail == $payee_email) && ($chargeAmount == $stored_amount)  && ($chargeCurrency == "NGN")) {
             // transaction was successful...
             // please check other things like whether you already gave value for this ref
             // if the email matches the customer who owns the product etc
@@ -166,13 +197,11 @@ class BookingController extends Controller
             ]);
 
             return redirect('/booking')->with('success', 'Your reservation has been booked successfully, please check your mailbox for your payment receipt. Thanks');
-
         } else {
             //Dont Give Value and return to Failure page
 
             return redirect('/booking')->with('failed', 'Your payment failed and your reservation was canceled, please try again. If this persists contact us. Thanks');
         }
-
     }
 
     /**
