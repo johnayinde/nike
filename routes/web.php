@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\BookingPaymentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestsController;
@@ -39,7 +40,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/admin/home', 'HomeController@index')->name('home');
+Route::get('/admin/home', 'HomeController@index')->name('admin.home');
 Route::get('/about', function () {
     return view('about');
 });
@@ -78,13 +79,17 @@ Route::get('/menus', function () {
 Route::get('/contact', [SiteContactController::class,'index'])->name('contact');
 Route::post('/contact', [SiteContactController::class,'create'])->name('contact_msg');
 Route::get('/gallery', [SiteGalleryController::class,'index'])->name('gallery');
-Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('gallery');
+Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.gallery');
 Route::post('/admin/gallery', [GalleryController::class, 'create'])->name('upload_img');
 Route::patch('/admin/update_image/{id}', [GalleryController::class, 'update'])->name('gallery_update');
 Route::get('admin/delete_img/{id}/{image}', [GalleryController::class, 'destroy'])->name('delete_img');
 Route::get('/booking', [BookingController::class, 'index'])->name('booking');
 Route::match(['GET', 'POST'],'/payment', [BookingController::class, 'initialize'])->name('payment');
 Route::get('/rave/callback', [BookingController::class, 'callback'])->name('callback');
+Route::get('/payment/process/{booking}', [BookingController::class, 'processPayment'])->name('payment.process');
+Route::post('/booking/{booking}/send-payment-link', [BookingPaymentController::class, 'sendPaymentLink'])
+    ->middleware('throttle:5,1')
+    ->name('booking.send-payment-link');
 Route::patch('/update_profile', [UserController::class, 'update'])->name('update_profile');
 Route::patch('/password', [UserController::class, 'password'])->name('password');
 Route::post('/search', [SearchController::class, 'search'])->name('search');

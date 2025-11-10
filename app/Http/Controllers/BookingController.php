@@ -248,4 +248,30 @@ class BookingController extends Controller
     {
         //
     }
+
+    /**
+     * Process payment for a booking
+     *
+     * @param  \App\Models\Booking  $booking
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function processPayment(Booking $booking, Request $request)
+    {
+        // Verify the reference number matches (security check)
+        if ($request->has('ref') && $request->ref !== $booking->ref_num) {
+            abort(403, 'Invalid booking reference');
+        }
+
+        // Check if booking is already paid
+        if ($booking->isPaid()) {
+            return redirect()->route('home')->with('info', 'This booking has already been paid.');
+        }
+
+        // Redirect to payment initialization with booking details
+        return view('payment-link', [
+            'booking' => $booking,
+            'user' => $booking->user,
+        ]);
+    }
 }
