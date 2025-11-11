@@ -68,7 +68,7 @@ class Booking extends Model
             'reference' => $this->ref_num,
             'email' => $this->user->email,
             'booking_id' => $this->id,
-            'callback_url' => route('callback')
+            'callback_url' => route('payment.callback')
         ];
 
         $result = $this->initializePaystackPayment($data);

@@ -13,6 +13,7 @@ use App\Http\Controllers\SiteBlogController;
 use App\Http\Controllers\SiteContactController;
 use App\Http\Controllers\SiteGalleryController;
 use App\Http\Controllers\UserController;
+use App\Http\Webhooks\WebhookController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -40,7 +41,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/admin/home', 'HomeController@index')->name('admin.home');
+// Route::get('/admin/home', 'HomeController@index')->name('admin.home');
 Route::get('/about', function () {
     return view('about');
 });
@@ -85,7 +86,13 @@ Route::patch('/admin/update_image/{id}', [GalleryController::class, 'update'])->
 Route::get('admin/delete_img/{id}/{image}', [GalleryController::class, 'destroy'])->name('delete_img');
 Route::get('/booking', [BookingController::class, 'index'])->name('booking');
 Route::match(['GET', 'POST'],'/payment', [BookingController::class, 'initialize'])->name('payment');
-Route::get('/rave/callback', [BookingController::class, 'callback'])->name('callback');
+Route::get('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
+
+// Paystack Webhook
+Route::post('/webhooks/paystack', [WebhookController::class, 'handlePaystackWebhook'])
+    ->name('webhooks.paystack')
+    ->withoutMiddleware(['web', 'csrf']);
+
 Route::get('/payment/process/{booking}', [BookingController::class, 'processPayment'])->name('payment.process');
 Route::post('/booking/{booking}/send-payment-link', [BookingPaymentController::class, 'sendPaymentLink'])
     ->middleware('throttle:5,1')

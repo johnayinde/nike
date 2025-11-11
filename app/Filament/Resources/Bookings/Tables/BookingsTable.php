@@ -6,7 +6,9 @@ use App\Models\Booking;
 use App\Notifications\BookingPaymentLinkNotification;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 
 class BookingsTable
@@ -58,8 +60,43 @@ class BookingsTable
                     ->sortable(),
             ])
             ->filters([
-                //
-            ])
+                Filter::make('checkin_date_range')
+                    ->form([
+                        \Filament\Forms\Components\DatePicker::make('checkin_from')
+                            ->label('Check-in From')
+                            ->placeholder('Select start date'),
+                        \Filament\Forms\Components\DatePicker::make('checkin_to')
+                            ->label('Check-in To')
+                            ->placeholder('Select end date'),
+                    ])
+                    ->columns(2)
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['checkin_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('checkin', '>=', $date),
+                            )
+                            ->when(
+                                $data['checkin_to'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('checkin', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        
+                        if ($data['checkin_from'] ?? null) {
+                            $indicators[] = 'Check-in from ' . \Carbon\Carbon::parse($data['checkin_from'])->format('M j, Y');
+                        }
+                        
+                        if ($data['checkin_to'] ?? null) {
+                            $indicators[] = 'Check-in to ' . \Carbon\Carbon::parse($data['checkin_to'])->format('M j, Y');
+                        }
+                        
+                        return $indicators;
+                    }),
+            ], layout: \Filament\Tables\Enums\FiltersLayout::AboveContent)
+            ->filtersFormColumns(1)
+            ->persistFiltersInSession()
             ->recordActions([
                 Action::make('viewDetails')
                     ->label('View')
@@ -69,7 +106,7 @@ class BookingsTable
                     ->modalContent(fn (Booking $record) => view('filament.resources.bookings.view-booking', ['record' => $record]))
                     ->modalWidth('3xl')
                     ->slideOver()
-                    ->modalFooterActions(fn (Booking $record) => [
+                    ->modalFooterActions(fn (Booking $record) => array_filter([
                         // Send Payment Link button (only for unpaid bookings)
                         $record->isPending() 
                             ? Action::make('sendPaymentLink')
@@ -151,7 +188,7 @@ class BookingsTable
                             ->label('Close')
                             ->color('gray')
                             ->modalCancelAction(),
-                    ])->modalSubmitAction(false),
+                    ]))->modalSubmitAction(false),
             ])
             ->defaultSort('created_at', 'desc')
             ->striped()

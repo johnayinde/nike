@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Services\EmailService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use KingFlamez\Rave\Facades\Rave;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
@@ -122,6 +122,9 @@ class BookingController extends Controller
                 'ref_num' => $data['ref'],
             ]);
 
+            // Retrieve user for email data
+            $user = User::find($user_id);
+
             $emailData = [
                 'guest_name' => $user->first_name . ' ' . $user->last_name,
                 'guest_email' => $user->email,
@@ -159,48 +162,97 @@ class BookingController extends Controller
     }
 
     /**
-     * Obtain Rave callback information
+     * Handle Paystack payment callback
      * @return \Illuminate\Http\RedirectResponse
      */
     public function callback(Request $request)
     {
+        // Get the reference from Paystack callback
+        $reference = $request->query('reference');
+        
+        if (!$reference) {
+            return redirect('/booking')->with('failed', 'Invalid payment reference. Please try again.');
+        }
 
-        $resp = $request->resp;
-        $body = json_decode($resp, true);
-        $txRef = $body['data']['data']['txRef'];
-        $data = Rave::verifyTransaction($txRef);
-
-
-        //This verifies the transaction and takes the parameter of the transaction reference
-
-        $chargeResponsecode = $data->data->chargecode;
-        $chargeAmount = $data->data->amount;
-        $chargeCurrency = $data->data->currency;
-        $paymentEmail = $data->data->custemail;
-        $OurRef = $data->data->txref;
-        $raveref = $data->data->flwref;
-
-        $payment = Booking::with(['user'])->where('ref_num', $OurRef)->get(); // This will get the payments and the linked uploader with all their details (this is achieved by relating the tables in the Booking model)
-        $payee_email = $payment[0]->user->email;
-        $stored_amount = $payment[0]->amount;
-
-        if (($chargeResponsecode == "00" || $chargeResponsecode == "0") && ($paymentEmail == $payee_email) && ($chargeAmount == $stored_amount)  && ($chargeCurrency == "NGN")) {
-            // transaction was successful...
-            // please check other things like whether you already gave value for this ref
-            // if the email matches the customer who owns the product etc
-            //Give Value and return to Success page
-
-            Booking::where('ref_num', $OurRef)->update([
+        // Verify transaction with Paystack
+        $curl = curl_init();
+        
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api.paystack.co/transaction/verify/" . rawurlencode($reference),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => [
+                "Authorization: Bearer " . config('services.paystack.secret_key'),
+                "Cache-Control: no-cache",
+            ],
+        ]);
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        
+        if ($err) {
+            \Log::error('Paystack verification error: ' . $err);
+            return redirect('/booking')->with('failed', 'Payment verification failed. Please contact support.');
+        }
+        
+        $result = json_decode($response, true);
+        
+        if (!$result || !isset($result['status']) || !$result['status']) {
+            \Log::error('Paystack verification failed', ['response' => $response]);
+            return redirect('/booking')->with('failed', 'Payment verification failed. Please try again.');
+        }
+        
+        $data = $result['data'];
+        
+        // Extract payment details
+        $paymentStatus = $data['status']; // success, failed, abandoned
+        $amount = $data['amount'] / 100; // Paystack returns amount in kobo
+        $currency = $data['currency'];
+        $customerEmail = $data['customer']['email'];
+        $reference = $data['reference'];
+        
+        // Find the booking by reference
+        $booking = Booking::with(['user'])->where('ref_num', $reference)->first();
+        
+        if (!$booking) {
+            \Log::error('Booking not found for reference: ' . $reference);
+            return redirect('/booking')->with('failed', 'Booking not found. Please contact support.');
+        }
+        
+        // Validate payment details
+        $isValid = (
+            $paymentStatus === 'success' &&
+            $customerEmail === $booking->user->email &&
+            $amount == $booking->amount &&
+            $currency === 'NGN'
+        );
+        
+        if ($isValid) {
+            // Update booking status
+            $booking->update([
                 'payment_status' => 'Paid',
-                'order_status' => 'Successful',
-                'raveref' => $raveref,
+                'order_status' => 'Reserved',
+                'posted' => 'Yes',
             ]);
-
-            return redirect('/booking')->with('success', 'Your reservation has been booked successfully, please check your mailbox for your payment receipt. Thanks');
+            
+            \Log::info('Payment successful for booking: ' . $booking->ref_num);
+            
+            return redirect('/booking')->with('success', 'Your reservation has been booked successfully! Please check your email for confirmation. Thanks');
         } else {
-            //Dont Give Value and return to Failure page
-
-            return redirect('/booking')->with('failed', 'Your payment failed and your reservation was canceled, please try again. If this persists contact us. Thanks');
+            // Payment failed or invalid
+            \Log::warning('Payment validation failed', [
+                'reference' => $reference,
+                'status' => $paymentStatus,
+                'expected_amount' => $booking->amount,
+                'received_amount' => $amount,
+            ]);
+            
+            return redirect('/booking')->with('failed', 'Your payment could not be verified. Please contact support if you were charged. Thanks');
         }
     }
 

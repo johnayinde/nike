@@ -7,8 +7,10 @@ use App\Filament\Resources\Bookings\Pages\EditBooking;
 use App\Filament\Resources\Bookings\Pages\ListBookings;
 use App\Filament\Resources\Bookings\Schemas\BookingForm;
 use App\Filament\Resources\Bookings\Tables\BookingsTable;
+use App\Filament\Resources\Bookings\Widgets;
 use App\Models\Booking;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +23,10 @@ class BookingResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'Booking';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Reservation Management';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {
@@ -39,16 +45,22 @@ class BookingResource extends Resource
         ];
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            Widgets\StatsOverview::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => ListBookings::route('/'),
-            // Removed create and edit pages - bookings are created from frontend only
         ];
     }
 
     public static function canCreate(): bool
     {
-        return false; // Disable create button
+        return true;
     }
 }
