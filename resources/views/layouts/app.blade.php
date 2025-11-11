@@ -47,6 +47,15 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/ie10-viewport-bug-workaround.css')}}">
     <script src="{{asset('js/ie-emulation-modes-warning.js')}}"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5JJS2FJN2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y5JJS2FJN2');
+    </script>
 
     <style type="text/css" media="screen">
         table {

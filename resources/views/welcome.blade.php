@@ -13,8 +13,8 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-18.jpg')}}" alt="banner-slider-6">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Exquisite</span> View</h1>
-                            <p data-animation="animated fadeInLeft delay-1s">We are Landmark Nike Lake Resort</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s"><span>The Perfect</span> Escape You’ve Been Looking For.</h1>
+                            <p data-animation="animated fadeInLeft delay-1s">The Landmark Nike Lake Resort offers you the holistic experience you really deserve</p>
                             <a href="{{ url('/booking') }}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
@@ -24,8 +24,8 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-6.jpg')}}" alt="banner-slider-5">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Luxury</span> & Class</h1>
-                            <p data-animation="animated fadeInLeft delay-1s">That touch of luxury with class</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Complete</span> Comfort, Nothing Less</h1>
+                            <p data-animation="animated fadeInLeft delay-1s">Experience a touch of luxury with class. We make no compromise for your comfort, even if it means going the extra mile</p>
                             <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{url('/about')}}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
@@ -35,8 +35,8 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-15.jpg')}}" alt="banner-slider-3">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInDown delay-05s"><span>World Class</span> Convention Hall</h1>
-                            <p data-animation="animated fadeInUp delay-1s">We have more than it takes to cover all your conventional activities and gatherings</p>
+                            <h1 data-animation="animated fadeInDown delay-05s">Don’t just host your audience. Delight them.</h1>
+                            <p data-animation="animated fadeInUp delay-1s">Access the extraordinary experience of our halls and event centres for your conventions, meetings, or conferences</p>
                             <a href="#" data-toggle="modal" data-target="#conference" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/conferencing') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
@@ -46,8 +46,8 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-9.jpg')}}" alt="banner-slider-2">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>World Class</span> Rooms</h1>
-                            <p data-animation="animated fadeInUp delay-05s">Relax and feel the touch of class in our exotic rooms</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s"><span>A Place</span> Just Like Home</h1>
+                            <p data-animation="animated fadeInUp delay-05s">Relax and feel the touch of home in our exotic rooms, carefully designed for a satisfying experience</p>
                             <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
@@ -57,14 +57,14 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-11.jpg')}}" alt="banner-slider-1">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Welcome to</span> Landmark Nike Lake Resort</h1>
-                            <p data-animation="animated fadeInLeft delay-1s">Offering the world class hospitality with a touch of class</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s">Experience Elegance in the Heart of Enugu</h1>
+                            <p data-animation="animated fadeInLeft delay-1s">The Landmark Nike Lake Resort brings you a holistic world-class experience.</p>
                             <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
                     </div>
                 </div>
-                <div class="item">
+                {{-- <div class="item">
                     <img src="{{asset('img/banner/banner-20.jpg')}}" alt="banner-slider-1">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
@@ -74,13 +74,13 @@ $page = 'home';
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="item">
                     <img src="{{asset('img/banner/banner-12.jpeg')}}" alt="banner-slider-1">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Lake</span> View</h1>
-                            <p data-animation="animated fadeInLeft delay-1s">Have fun and explore</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Immerse Yourself</span> in the Warmth of Nature</h1>
+                            <p data-animation="animated fadeInLeft delay-1s">Explore the historic Landmark Nike Lake and discover the beauty and calm it gives </p>
                             <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
@@ -90,14 +90,14 @@ $page = 'home';
                     <img src="{{asset('img/banner/banner-13.jpeg')}}" alt="banner-slider-1">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
-                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Lake View</span> Restaurant</h1>
-                            <p data-animation="animated fadeInLeft delay-1s">Our satisfying restaurants will give you the best</p>
+                            <h1 data-animation="animated fadeInLeft delay-05s"><span>Your Gateway</span> to World Class Dining</h1>
+                            <p data-animation="animated fadeInLeft delay-1s">Enjoy delicious local & international cuisines, prepared with utmost care.</p>
                             <a href="{{url('/booking')}}" class="btn btn-md btn-theme" data-animation="animated fadeInLeft delay-15s">Book Now</a>
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
                     </div>
                 </div>
-                <div class="item">
+                {{-- <div class="item">
                     <img src="{{asset('img/banner/banner-17.jpg')}}" alt="banner-slider-1">
                     <div class="carousel-caption banner-slider-inner banner-top-align">
                         <div class="banner-content text-center">
@@ -118,7 +118,7 @@ $page = 'home';
                             <a href="{{ url('/about') }}" class="btn btn-md border-btn-theme" data-animation="animated fadeInLeft delay-20s">Learn More</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Controls -->
