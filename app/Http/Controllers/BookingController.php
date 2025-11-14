@@ -76,26 +76,21 @@ class BookingController extends Controller
         $result = Booking::where('room', '=', $data['selected_room_input'])->where('checkin', '<=', $checkin)->where('checkout', '>=', $checkin)->where('checkout', '>=', $checkout)->where('checkin', '<=', $checkout)->where('order_status', '=', 'Successful')->count();
 
 
-        if($data['selected_room_input'] == 'Superior Room' && (188 - $result) <  $data['num_of_rooms']){
+        if ($data['selected_room_input'] == 'Superior Room' && (188 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        }
-        elseif($data['selected_room_input'] == 'Superior Room (Double)' && (10 - $result) <  $data['num_of_rooms']){
+        } elseif ($data['selected_room_input'] == 'Superior Room (Double)' && (10 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
         } elseif ($data['selected_room_input'] == 'Executive Suite' && (9 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        }
-        elseif($data['selected_room_input'] == 'Diplomatic Suite' && (2 - $result) <  $data['num_of_rooms']){
+        } elseif ($data['selected_room_input'] == 'Diplomatic Suite' && (2 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        }
-        elseif($data['selected_room_input'] == 'Presidential Suite' && (1 - $result) <  $data['num_of_rooms']){
+        } elseif ($data['selected_room_input'] == 'Presidential Suite' && (1 - $result) <  $data['num_of_rooms']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        }
-        else {
+        } else {
 
-            if(isset(Auth::User()->id)){
+            if (isset(Auth::User()->id)) {
                 $user_id = Auth::User()->id;
-            }
-            else{
+            } else {
                 User::create([
                     'first_name' => $data['firstname'],
                     'last_name' => $data['lastname'],
@@ -149,7 +144,7 @@ class BookingController extends Controller
             );
 
 
-            $adminEmail = env('ADMIN_EMAIL', 'lolaayinde@gmail.com');
+            $adminEmail = env('ADMIN_EMAIL', 'reservationLNL@landmarkafrica.com');
             $emailService->sendEmail(
                 $adminEmail,
                 'AdminBookingNotification',
@@ -169,14 +164,14 @@ class BookingController extends Controller
     {
         // Get the reference from Paystack callback
         $reference = $request->query('reference');
-        
+
         if (!$reference) {
             return redirect('/booking')->with('failed', 'Invalid payment reference. Please try again.');
         }
 
         // Verify transaction with Paystack
         $curl = curl_init();
-        
+
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://api.paystack.co/transaction/verify/" . rawurlencode($reference),
             CURLOPT_RETURNTRANSFER => true,
@@ -190,40 +185,40 @@ class BookingController extends Controller
                 "Cache-Control: no-cache",
             ],
         ]);
-        
+
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        
+
         if ($err) {
             \Log::error('Paystack verification error: ' . $err);
             return redirect('/booking')->with('failed', 'Payment verification failed. Please contact support.');
         }
-        
+
         $result = json_decode($response, true);
-        
+
         if (!$result || !isset($result['status']) || !$result['status']) {
             \Log::error('Paystack verification failed', ['response' => $response]);
             return redirect('/booking')->with('failed', 'Payment verification failed. Please try again.');
         }
-        
+
         $data = $result['data'];
-        
+
         // Extract payment details
         $paymentStatus = $data['status']; // success, failed, abandoned
         $amount = $data['amount'] / 100; // Paystack returns amount in kobo
         $currency = $data['currency'];
         $customerEmail = $data['customer']['email'];
         $reference = $data['reference'];
-        
+
         // Find the booking by reference
         $booking = Booking::with(['user'])->where('ref_num', $reference)->first();
-        
+
         if (!$booking) {
             \Log::error('Booking not found for reference: ' . $reference);
             return redirect('/booking')->with('failed', 'Booking not found. Please contact support.');
         }
-        
+
         // Validate payment details
         $isValid = (
             $paymentStatus === 'success' &&
@@ -231,7 +226,7 @@ class BookingController extends Controller
             $amount == $booking->amount &&
             $currency === 'NGN'
         );
-        
+
         if ($isValid) {
             // Update booking status
             $booking->update([
@@ -239,9 +234,9 @@ class BookingController extends Controller
                 'order_status' => 'Reserved',
                 'posted' => 'Yes',
             ]);
-            
+
             \Log::info('Payment successful for booking: ' . $booking->ref_num);
-            
+
             return redirect('/booking')->with('success', 'Your reservation has been booked successfully! Please check your email for confirmation. Thanks');
         } else {
             // Payment failed or invalid
@@ -251,7 +246,7 @@ class BookingController extends Controller
                 'expected_amount' => $booking->amount,
                 'received_amount' => $amount,
             ]);
-            
+
             return redirect('/booking')->with('failed', 'Your payment could not be verified. Please contact support if you were charged. Thanks');
         }
     }
