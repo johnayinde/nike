@@ -144,7 +144,7 @@ class BookingController extends Controller
             );
 
 
-            $adminEmail = env('ADMIN_EMAIL', 'reservationLNL@landmarkafrica.com');
+            $adminEmail = config('mail.mailers.smtp.admin_email');
             $emailService->sendEmail(
                 $adminEmail,
                 'AdminBookingNotification',
