@@ -87,7 +87,6 @@ trait RoomBookingTrait
             ->whereDate('checkin', '!=', $checkOut->toDateString())
             ->whereDate('checkout', '!=', $checkIn->toDateString())
             ->where('payment_status', 'Paid')
-            ->whereNull('deleted_at')
             ->where('order_status', '!=', 'Cancelled')
             ->where('order_status', '!=', 'Expired')
             ->sum('num_of_rooms');

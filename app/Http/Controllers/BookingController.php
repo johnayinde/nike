@@ -60,7 +60,7 @@ class BookingController extends Controller
                 'firstname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'lastname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'phonenumber' => ['required', 'min:10', 'max:20'],
-                'email' => ['required', 'string', 'email', 'max:255',],
+                'email' => ['required', 'string', 'email', 'max:255'],
                 'user_password' => ['nullable', 'string', 'min:8'],
             ]);
         }
@@ -104,15 +104,36 @@ class BookingController extends Controller
             if (isset(Auth::User()->id)) {
                 $user_id = Auth::User()->id;
             } else {
-                User::create([
-                    'first_name' => $data['firstname'],
-                    'last_name' => $data['lastname'],
-                    'email' => $data['email'],
-                    'phone' => $data['phonenumber'],
-                    'password' => Hash::make($data['user_password']),
-                ]);
-
-                $user_id = User::where('email', '=', $data['email'])->first()->id;
+                // Check if user exists
+                $existingUser = User::where('email', $data['email'])->first();
+                
+                if ($existingUser) {
+                    // User exists, update their information
+                    $updateData = [
+                        'first_name' => $data['firstname'],
+                        'last_name' => $data['lastname'],
+                        'phone' => $data['phonenumber'],
+                    ];
+                    
+                    // Only update password if a new one is provided
+                    if (!empty($data['user_password'])) {
+                        $updateData['password'] = Hash::make($data['user_password']);
+                    }
+                    
+                    $existingUser->update($updateData);
+                    $user_id = $existingUser->id;
+                } else {
+                    // User doesn't exist, create new user
+                    $user = User::create([
+                        'first_name' => $data['firstname'],
+                        'last_name' => $data['lastname'],
+                        'email' => $data['email'],
+                        'phone' => $data['phonenumber'],
+                        'password' => Hash::make($data['user_password'] ?: 'defaultpassword123'),
+                    ]);
+                    
+                    $user_id = $user->id;
+                }
             }
 
             // Create booking
