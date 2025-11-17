@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\PaystackApiTrait;
+use App\Traits\RoomBookingTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class Booking extends Model
 {
-    use PaystackApiTrait;
+    use PaystackApiTrait, RoomBookingTrait;
 
     protected $guarded = ['id'];
     protected $dates = ['checkin', 'checkout'];
@@ -19,12 +20,34 @@ class Booking extends Model
         'amount' => 'decimal:2',
     ];
 
+    protected static function booted()
+    {
+        // Update room group reservations when booking payment status changes to paid
+        static::updated(function ($booking) {
+            if ($booking->isDirty('payment_status') && $booking->isPaid()) {
+                $booking->updateRoomGroupReservations('add');
+            }
+        });
+
+        // Handle booking deletion
+        static::deleted(function ($booking) {
+            if ($booking->isPaid()) {
+                $booking->updateRoomGroupReservations('remove');
+            }
+        });
+    }
+
     /**
      * Get the user that owns the booking
      */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function room_group()
+    {
+        return $this->belongsTo(RoomGroup::class, 'room', 'name');
     }
 
     /**
@@ -98,5 +121,34 @@ class Booking extends Model
     public function generatePaymentLink(): string
     {
         return route('payment.process', ['booking' => $this->id, 'ref' => $this->ref_num]);
+    }
+
+    /**
+     * Update room group reservation counts
+     */
+    public function updateRoomGroupReservations(string $action = 'add')
+    {
+        if (!$this->room) {
+            return;
+        }
+
+        $roomGroup = RoomGroup::where('name', $this->room)->first();
+        if (!$roomGroup) {
+            return;
+        }
+
+        $currentReserved = $roomGroup->no_of_reserved_rooms ?? 0;
+
+        if ($action === 'add' && $this->checkin > now()) {
+            // Only add to reserved if check-in is in the future
+            $roomGroup->update([
+                'no_of_reserved_rooms' => $currentReserved + $this->num_of_rooms
+            ]);
+        } elseif ($action === 'remove') {
+            // Remove from reserved count
+            $roomGroup->update([
+                'no_of_reserved_rooms' => max(0, $currentReserved - $this->num_of_rooms)
+            ]);
+        }
     }
 }

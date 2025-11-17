@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\User;
+use App\Models\RoomGroup;
 use App\Services\EmailService;
+use App\Traits\RoomBookingTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +18,7 @@ use Carbon\Carbon;
 
 class BookingController extends Controller
 {
+    use RoomBookingTrait;
     //    public function __construct()
     //    {
     //        $this->middleware('auth');
@@ -79,20 +82,24 @@ class BookingController extends Controller
         $checkin = strtotime($data['checkin']);
         $checkout = strtotime($data['checkout']);
 
-        $result = Booking::where('room', '=', $data['selected_room_input'])->where('checkin', '<=', $checkin)->where('checkout', '>=', $checkin)->where('checkout', '>=', $checkout)->where('checkin', '<=', $checkout)->where('order_status', '=', 'Successful')->count();
+        // Check room availability using the new dynamic system
+        $roomGroup = RoomGroup::where('name', $data['selected_room_input'])->first();
+        
+        if (!$roomGroup) {
+            return redirect('/booking')->with('nothing', 'Invalid room type selected. Please try again.');
+        }
 
+        $availability = $this->checkAvailability(
+            $roomGroup->id,
+            date('Y-m-d', $checkin),
+            date('Y-m-d', $checkout),
+            $data['num_of_rooms']
+        );
 
-        if ($data['selected_room_input'] == 'Superior Room' && (188 - $result) <  $data['num_of_rooms']) {
-            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        } elseif ($data['selected_room_input'] == 'Superior Room (Double)' && (10 - $result) <  $data['num_of_rooms']) {
-            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        } elseif ($data['selected_room_input'] == 'Executive Suite' && (9 - $result) <  $data['num_of_rooms']) {
-            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        } elseif ($data['selected_room_input'] == 'Diplomatic Suite' && (2 - $result) <  $data['num_of_rooms']) {
-            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        } elseif ($data['selected_room_input'] == 'Presidential Suite' && (1 - $result) <  $data['num_of_rooms']) {
-            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable, please adjust your specifications and try again');
-        } else {
+        if (!$availability['available']) {
+            return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable. ' . $availability['message'] . '. Please adjust your specifications and try again.');
+        }
+        else {
 
             if (isset(Auth::User()->id)) {
                 $user_id = Auth::User()->id;
@@ -308,7 +315,12 @@ class BookingController extends Controller
                 'booking' => $booking,
                 'user' => $booking->user,
             ]);
+            
+            Log::info('Payment successful for booking: ' . $booking->ref_num);
+            
+            return redirect('/booking')->with('success', 'Your reservation has been booked successfully! Please check your email for confirmation. Thanks');
         } else {
+            // Payment failed or invalid
             Log::warning('Payment validation failed', [
                 'reference' => $reference,
                 'status' => $paymentStatus,

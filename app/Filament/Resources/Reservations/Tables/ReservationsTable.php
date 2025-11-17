@@ -91,6 +91,16 @@ class ReservationsTable
                             'order_status' => 'Occupied',
                         ]);
 
+                        // Update the room group's booked rooms count
+                        $roomGroup = \App\Models\RoomGroup::where('name', $record->room)->first();
+                        if ($roomGroup) {
+                            $currentBooked = $roomGroup->no_of_booked_rooms ?? 0;
+                            $roomGroup->update([
+                                'no_of_booked_rooms' => $currentBooked + $record->num_of_rooms,
+                                'no_of_reserved_rooms' => max(0, ($roomGroup->no_of_reserved_rooms ?? 0) - $record->num_of_rooms)
+                            ]);
+                        }
+
                         Notification::make()
                             ->title('Reservation Processed')
                             ->success()

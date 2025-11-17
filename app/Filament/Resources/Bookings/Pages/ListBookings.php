@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Bookings\Pages;
 
 use App\Filament\Resources\Bookings\BookingResource;
 use App\Filament\Resources\Bookings\Widgets\StatsOverview;
-use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListBookings extends ListRecords
@@ -14,9 +13,7 @@ class ListBookings extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->slideOver()
-                ->modalWidth('4xl'),
+            // New booking button hidden - bookings are only created through reservations processing
         ];
     }
 

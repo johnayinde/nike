@@ -40,9 +40,10 @@ class ReservationResource extends Resource
     {
         return parent::getEloquentQuery()
             ->where('payment_status', 'Paid')
-            ->whereDate('checkin', '<=', now())
-            ->whereDate('checkout', '>=', now())
-            ->orderBy('checkin', 'desc');
+            ->whereDate('checkin', '>=', now()->toDateString())
+            ->where('order_status', '!=', 'Occupied')
+            ->where('order_status', '!=', 'Expired')
+            ->orderBy('checkin', 'asc');
     }
 
     public static function form(Schema $schema): Schema

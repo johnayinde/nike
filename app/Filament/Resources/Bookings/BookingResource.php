@@ -28,6 +28,14 @@ class BookingResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('order_status', 'Occupied')
+            ->where('payment_status', 'Paid')
+            ->orderBy('checkin', 'desc');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return BookingForm::configure($schema);
@@ -61,6 +69,6 @@ class BookingResource extends Resource
 
     public static function canCreate(): bool
     {
-        return true;
+        return false;
     }
 }
