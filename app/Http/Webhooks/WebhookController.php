@@ -20,7 +20,7 @@ class WebhookController extends Controller
         // Verify the webhook signature
         $signature = $request->header('x-paystack-signature');
         $body = $request->getContent();
-        
+
         if (!$this->verifyWebhookSignature($signature, $body)) {
             Log::warning('Invalid Paystack webhook signature', [
                 'ip' => $request->ip()
@@ -35,10 +35,10 @@ class WebhookController extends Controller
         switch ($event->event) {
             case 'charge.success':
                 return $this->handleSuccessfulCharge($event->data);
-            
+
             case 'charge.failed':
                 return $this->handleFailedCharge($event->data);
-            
+
             default:
                 Log::info('Unhandled Paystack webhook event', [
                     'event' => $event->event
@@ -133,7 +133,6 @@ class WebhookController extends Controller
                 'message' => 'Payment processed successfully',
                 'booking_id' => $booking->id
             ], 200);
-
         } catch (\Exception $e) {
             Log::error('Webhook processing error', [
                 'error' => $e->getMessage(),
@@ -165,7 +164,6 @@ class WebhookController extends Controller
             }
 
             return response()->json(['message' => 'Payment failure recorded'], 200);
-
         } catch (\Exception $e) {
             Log::error('Failed charge webhook error', [
                 'error' => $e->getMessage()
@@ -181,9 +179,9 @@ class WebhookController extends Controller
     {
         try {
             $this->initializePaystack();
-            
+
             $verifyUrl = str_replace('/transaction/initialize', "/transaction/verify/{$reference}", $this->baseUri);
-            
+
             $result = $this->callApi($this->headers, $verifyUrl, 'GET');
 
             if (isset($result->status) && $result->status === true) {
@@ -191,7 +189,6 @@ class WebhookController extends Controller
             }
 
             return null;
-
         } catch (\Exception $e) {
             Log::error('Payment verification API error', [
                 'reference' => $reference,

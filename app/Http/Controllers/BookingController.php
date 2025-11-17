@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 
 class BookingController extends Controller
@@ -56,7 +57,7 @@ class BookingController extends Controller
                 'firstname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'lastname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'phonenumber' => ['required', 'min:10', 'max:20'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'email' => ['required', 'string', 'email', 'max:255',],
                 'user_password' => ['nullable', 'string', 'min:8'],
             ]);
         }
@@ -64,11 +65,16 @@ class BookingController extends Controller
 
         $data = request()->all();
 
+        $data['ref'] = 'NLR-' . strtoupper(uniqid());
+
         $date = date("Y-m-d");
         $time = date("h:i:s");
-        $payment_status = 'Unpaid';
+
         $now = $date . ' ' . $time;
-        $order_status = 'Failed';
+
+        $payment_status = 'Pending';
+        $now = $date . ' ' . $time;
+        $order_status = 'Pending';
         $posted = 'No';
         $checkin = strtotime($data['checkin']);
         $checkout = strtotime($data['checkout']);
@@ -103,7 +109,7 @@ class BookingController extends Controller
             }
 
             // Create booking
-            Booking::create([
+            $booking =  Booking::create([
                 'user_id' => $user_id,
                 'room' => $data['selected_room_input'],
                 'checkin' => $data['checkin'],
@@ -117,43 +123,99 @@ class BookingController extends Controller
                 'ref_num' => $data['ref'],
             ]);
 
+            Log::info('Booking created, redirecting to payment', [
+                'booking_id' => $booking->id,
+                'reference' => $data['ref'],
+            ]);
+
+
             // Retrieve user for email data
-            $user = User::find($user_id);
+            // $user = User::find($user_id);
 
-            $emailData = [
-                'guest_name' => $user->first_name . ' ' . $user->last_name,
-                'guest_email' => $user->email,
-                'guest_phone' => $user->phone,
-                'room' => $data['selected_room_input'],
-                'num_of_rooms' => $data['num_of_rooms'],
-                'checkin' => $data['checkin'],
-                'checkout' => $data['checkout'],
-                'amount' => $data['amount'],
-                'payment_status' => $payment_status,
-                'ref_num' => $data['ref'],
-                'created_at' => $now,
-                'admin_dashboard_url' => url('/admin/bookings'),
-            ];
+            // $emailData = [
+            //     'guest_name' => $user->first_name . ' ' . $user->last_name,
+            //     'guest_email' => $user->email,
+            //     'guest_phone' => $user->phone,
+            //     'room' => $data['selected_room_input'],
+            //     'num_of_rooms' => $data['num_of_rooms'],
+            //     'checkin' => $data['checkin'],
+            //     'checkout' => $data['checkout'],
+            //     'amount' => $data['amount'],
+            //     'payment_status' => $payment_status,
+            //     'ref_num' => $data['ref'],
+            //     'created_at' => $now,
+            //     'admin_dashboard_url' => url('/admin/bookings'),
+            // ];
 
-            $emailService = new EmailService();
+            // $emailService = new EmailService();
 
-            $emailService->sendEmail(
-                $user->email,
-                'BookingConfirmation',
-                $emailData
-            );
+            // $emailService->sendEmail(
+            //     $user->email,
+            //     'BookingConfirmation',
+            //     $emailData
+            // );
 
 
-            $adminEmail = config('mail.mailers.smtp.admin_email');
-            $emailService->sendEmail(
-                $adminEmail,
-                'AdminBookingNotification',
-                $emailData
-            );
+            // $adminEmail = config('mail.mailers.smtp.admin_email');
+            // $emailService->sendEmail(
+            //     $adminEmail,
+            //     'AdminBookingNotification',
+            //     $emailData
+            // );
+            return $this->initializePaystackPayment($booking);
         }
 
         // Rave::initialize(route('callback'));
-        return redirect('/booking')->with('success', 'Your reservation has been saved');
+        // return redirect('/booking')->with('success', 'Your reservation has been saved');
+    }
+
+
+    /**
+     * Initialize Paystack payment and redirect
+     */
+    private function initializePaystackPayment(Booking $booking)
+    {
+        $user = $booking->user;
+
+        $paymentData = [
+            'email' => $user->email,
+            'amount' => $booking->amount * 100, // Convert to kobo
+            'reference' => $booking->ref_num,
+            'callback_url' => route('payment.callback'),
+            'metadata' => [
+                'booking_id' => $booking->id,
+                'customer_name' => $user->first_name . ' ' . $user->last_name,
+                'customer_phone' => $user->phone,
+                'room_type' => $booking->room,
+                'num_of_rooms' => $booking->num_of_rooms,
+                'checkin' => $booking->checkin,
+                'checkout' => $booking->checkout,
+            ],
+        ];
+
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . config('services.paystack.secret_key'),
+            ])->post('https://api.paystack.co/transaction/initialize', $paymentData);
+
+            if ($response->failed() || !isset($response['status']) || !$response['status']) {
+                Log::error('Paystack initialization failed', ['response' => $response->body(), 'booking_id' => $booking->id]);
+                $booking->delete(); // Delete failed booking
+                return redirect('/booking')->with('failed', 'Payment initialization failed. Please try again.');
+            }
+
+            // Store payment link
+            $booking->update(['payment_link' => $response['data']['authorization_url']]);
+
+            Log::info('Redirecting to Paystack', ['booking_id' => $booking->id]);
+
+            // Redirect to Paystack payment page IMMEDIATELY
+            return redirect($response['data']['authorization_url']);
+        } catch (\Exception $e) {
+            Log::error('Paystack initialization error', ['error' => $e->getMessage(), 'booking_id' => $booking->id]);
+            $booking->delete(); // Delete failed booking
+            return redirect('/booking')->with('failed', 'Unable to initialize payment. Please try again.');
+        }
     }
 
     /**
@@ -166,6 +228,7 @@ class BookingController extends Controller
         $reference = $request->query('reference');
 
         if (!$reference) {
+            Log::warning('Payment callback without reference');
             return redirect('/booking')->with('failed', 'Invalid payment reference. Please try again.');
         }
 
@@ -191,14 +254,14 @@ class BookingController extends Controller
         curl_close($curl);
 
         if ($err) {
-            \Log::error('Paystack verification error: ' . $err);
+            Log::error('Paystack verification error: ' . $err);
             return redirect('/booking')->with('failed', 'Payment verification failed. Please contact support.');
         }
 
         $result = json_decode($response, true);
 
         if (!$result || !isset($result['status']) || !$result['status']) {
-            \Log::error('Paystack verification failed', ['response' => $response]);
+            Log::error('Paystack verification failed', ['response' => $response]);
             return redirect('/booking')->with('failed', 'Payment verification failed. Please try again.');
         }
 
@@ -209,13 +272,13 @@ class BookingController extends Controller
         $amount = $data['amount'] / 100; // Paystack returns amount in kobo
         $currency = $data['currency'];
         $customerEmail = $data['customer']['email'];
-        $reference = $data['reference'];
+        $paidAt = $data['paid_at'] ?? null;
 
         // Find the booking by reference
         $booking = Booking::with(['user'])->where('ref_num', $reference)->first();
 
         if (!$booking) {
-            \Log::error('Booking not found for reference: ' . $reference);
+            Log::error('Booking not found for reference: ' . $reference);
             return redirect('/booking')->with('failed', 'Booking not found. Please contact support.');
         }
 
@@ -233,21 +296,85 @@ class BookingController extends Controller
                 'payment_status' => 'Paid',
                 'order_status' => 'Reserved',
                 'posted' => 'Yes',
+                'paid_at' => $paidAt ? Carbon::parse($paidAt) : now(),
             ]);
 
-            \Log::info('Payment successful for booking: ' . $booking->ref_num);
+            Log::info('Payment successful for booking: ' . $booking->ref_num);
 
-            return redirect('/booking')->with('success', 'Your reservation has been booked successfully! Please check your email for confirmation. Thanks');
+            $this->sendConfirmationEmails($booking);
+
+            // Redirect to success page
+            return view('payment-success', [
+                'booking' => $booking,
+                'user' => $booking->user,
+            ]);
         } else {
-            // Payment failed or invalid
-            \Log::warning('Payment validation failed', [
+            Log::warning('Payment validation failed', [
                 'reference' => $reference,
                 'status' => $paymentStatus,
                 'expected_amount' => $booking->amount,
                 'received_amount' => $amount,
             ]);
 
-            return redirect('/booking')->with('failed', 'Your payment could not be verified. Please contact support if you were charged. Thanks');
+            $booking->update([
+                'payment_status' => 'Failed',
+                'order_status' => 'Payment Failed',
+            ]);
+
+            return redirect('/booking')->with('failed', 'Payment could not be verified. If you were charged, please contact support with reference: ' . $reference);
+        }
+    }
+
+
+
+    /**
+     * Send confirmation emails to user and admin (called ONLY after successful payment)
+     */
+    private function sendConfirmationEmails(Booking $booking)
+    {
+        try {
+            $user = $booking->user;
+
+            $emailData = [
+                'guest_name' => $user->first_name . ' ' . $user->last_name,
+                'guest_email' => $user->email,
+                'guest_phone' => $user->phone,
+                'room' => $booking->room,
+                'num_of_rooms' => $booking->num_of_rooms,
+                'checkin' => $booking->checkin,
+                'checkout' => $booking->checkout,
+                'amount' => $booking->amount,
+                'payment_status' => $booking->payment_status,
+                'ref_num' => $booking->ref_num,
+                'created_at' => $booking->created_at,
+                'admin_dashboard_url' => url('/admin/bookings'),
+            ];
+
+            $emailService = new EmailService();
+
+            // Send confirmation email to user
+            $emailService->sendEmail(
+                $user->email,
+                'BookingConfirmation',
+                $emailData
+            );
+
+            // Send notification email to admin
+            $adminEmail = config('mail.mailers.smtp.admin_email');
+            if ($adminEmail) {
+                $emailService->sendEmail(
+                    $adminEmail,
+                    'AdminBookingNotification',
+                    $emailData
+                );
+            }
+
+            Log::info('Confirmation emails sent', ['booking_id' => $booking->id]);
+        } catch (\Exception $e) {
+            Log::error('Failed to send confirmation emails', [
+                'booking_id' => $booking->id,
+                'error' => $e->getMessage(),
+            ]);
         }
     }
 
