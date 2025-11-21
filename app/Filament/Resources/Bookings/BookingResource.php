@@ -31,8 +31,7 @@ class BookingResource extends Resource
     public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
     {
         return parent::getEloquentQuery()
-            ->where('order_status', 'Occupied')
-            ->where('payment_status', 'Paid')
+
             ->orderBy('checkin', 'desc');
     }
 

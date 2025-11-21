@@ -39,6 +39,18 @@ class BookingsTable
                     ->searchable()
                     ->badge()
                     ->color('info'),
+                TextColumn::make('order_status')
+                    ->label('Order Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match (strtolower($state)) {
+                        'confirmed' => 'success',
+                        'occupied' => 'info',
+                        'completed' => 'gray',
+                        'cancelled' => 'danger',
+                        default => 'warning',
+                    })
+                    ->formatStateUsing(fn ($state) => ucfirst($state ?? 'pending'))
+                    ->sortable(),
                 TextColumn::make('checkin')
                     ->label('Check-in')
                     ->date('M j, Y')
@@ -60,6 +72,21 @@ class BookingsTable
                     ->sortable(),
             ])
             ->filters([
+                \Filament\Tables\Filters\SelectFilter::make('payment_status')
+                    ->label('Payment Status')
+                    ->options([
+                        'paid' => 'Paid',
+                        'successful' => 'Successful',
+                        'pending' => 'Pending',
+                        'failed' => 'Failed',
+                    ])
+                    ->default('paid')
+                    ->query(function (\Illuminate\Database\Eloquent\Builder $query, array $data): \Illuminate\Database\Eloquent\Builder {
+                        if (!isset($data['value']) || empty($data['value'])) {
+                            return $query;
+                        }
+                        return $query->whereRaw('LOWER(payment_status) = ?', [strtolower($data['value'])]);
+                    }),
                 Filter::make('checkin_date_range')
                     ->form([
                         \Filament\Forms\Components\DatePicker::make('checkin_from')

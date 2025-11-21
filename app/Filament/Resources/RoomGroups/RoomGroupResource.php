@@ -43,7 +43,7 @@ class RoomGroupResource extends Resource
         ];
     }
 
-    // Disable creation, editing and deletion for this resource
+    // Disable creation and deletion but allow editing
     public static function canCreate(): bool
     {
         return false;

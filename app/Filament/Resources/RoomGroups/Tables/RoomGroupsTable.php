@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RoomGroups\Tables;
 
 use App\Models\Booking;
+use Filament\Actions\Action;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -15,11 +16,6 @@ class RoomGroupsTable
             ->columns([
                 TextColumn::make('name')
                     ->label('Room Group Name')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('short_name')
-                    ->label('Short Name')
                     ->searchable()
                     ->sortable(),
 
@@ -55,30 +51,36 @@ class RoomGroupsTable
                     ->prefix('₦')
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),
-
-                TextColumn::make('guest')
-                    ->label('Max Guests')
-                    ->numeric()
-                    ->sortable(),
-
-                TextColumn::make('status')
-                    ->label('Status')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'Active' => 'success',
-                        'Inactive' => 'danger',
-                        default => 'gray',
-                    }),
-            ])
-            ->filters([
-                Tables\Filters\SelectFilter::make('status')
-                    ->options([
-                        'Active' => 'Active',
-                        'Inactive' => 'Inactive',
-                    ]),
+                // Filters can be added here if needed
             ])
             ->actions([
-                // No actions needed for now
+                Action::make('editRooms')
+                    ->label('Edit Rooms')
+                    ->icon('heroicon-o-pencil')
+                    ->color('primary')
+                    ->modalHeading(fn ($record) => 'Edit Total Rooms for ' . $record->name)
+                    ->modalWidth('md')
+                    ->form([
+                        \Filament\Forms\Components\TextInput::make('no_of_rooms')
+                            ->label('Total Number of Rooms')
+                            ->numeric()
+                            ->required()
+                            ->minValue(1)
+                            ->step(1)
+                            ->helperText('Enter the total number of rooms available for this room group')
+                            ->default(fn ($record) => $record->no_of_rooms),
+                    ])
+                    ->action(function ($record, array $data) {
+                        $record->update([
+                            'no_of_rooms' => $data['no_of_rooms']
+                        ]);
+                        
+                        \Filament\Notifications\Notification::make()
+                            ->success()
+                            ->title('Room count updated')
+                            ->body('Total rooms updated to ' . $data['no_of_rooms'])
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 // No bulk actions needed
