@@ -60,6 +60,8 @@ class BookingController extends Controller
                 'firstname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'lastname' => ['required', 'string', 'max:255', 'min:2', 'regex:/^[a-zA-Z ]+$/'],
                 'phonenumber' => ['required', 'min:10', 'max:20'],
+                'full_phone' => ['nullable', 'string', 'min:12', 'max:25'], // For international format
+                'country_code' => ['nullable', 'string', 'max:5'],
                 'email' => ['required', 'string', 'email', 'max:255'],
                 'user_password' => ['nullable', 'string', 'min:8'],
             ]);
@@ -112,7 +114,7 @@ class BookingController extends Controller
                     $updateData = [
                         'first_name' => $data['firstname'],
                         'last_name' => $data['lastname'],
-                        'phone' => $data['phonenumber'],
+                        'phone' => !empty($data['full_phone']) ? $data['full_phone'] : $data['phonenumber'],
                     ];
                     
                     // Only update password if a new one is provided
@@ -128,7 +130,7 @@ class BookingController extends Controller
                         'first_name' => $data['firstname'],
                         'last_name' => $data['lastname'],
                         'email' => $data['email'],
-                        'phone' => $data['phonenumber'],
+                        'phone' => !empty($data['full_phone']) ? $data['full_phone'] : $data['phonenumber'],
                         'password' => Hash::make($data['user_password'] ?: 'defaultpassword123'),
                     ]);
                     

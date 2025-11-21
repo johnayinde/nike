@@ -252,8 +252,32 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                         <div class="form-group phone">
-                                                            <label>Phone</label>
-                                                            <input type="text" name="phonenumber" class="btn-default @error('phone') is-invalid @enderror" id="phone" onchange="cost_calculator();" value="{{ old('phonenumber') }}@guest @else{{Auth::User()->phone}}@endguest">
+                                                            <label>Phone Number</label>
+                                                            <div class="phone-input-container" style="display: flex; align-items: center;">
+                                                                <select name="country_code" id="country_code" class="btn-default" style="width: 120px; margin-right: 10px; flex-shrink: 0;" onchange="updatePhoneValidation();">
+                                                                    <option value="+234" data-min="10" data-max="10" data-pattern="^[789][01]\d{8}$">🇳🇬 +234</option>
+                                                                    <option value="+1" data-min="10" data-max="10" data-pattern="^\d{10}$">🇺🇸 +1</option>
+                                                                    <option value="+44" data-min="10" data-max="11" data-pattern="^\d{10,11}$">🇬🇧 +44</option>
+                                                                    <option value="+233" data-min="9" data-max="9" data-pattern="^\d{9}$">🇬🇭 +233</option>
+                                                                    <option value="+27" data-min="9" data-max="9" data-pattern="^\d{9}$">🇿🇦 +27</option>
+                                                                    <option value="+254" data-min="9" data-max="9" data-pattern="^[17]\d{8}$">🇰🇪 +254</option>
+                                                                    <option value="+256" data-min="9" data-max="9" data-pattern="^[37]\d{8}$">🇺🇬 +256</option>
+                                                                    <option value="+91" data-min="10" data-max="10" data-pattern="^[6-9]\d{9}$">🇮🇳 +91</option>
+                                                                    <option value="+86" data-min="11" data-max="11" data-pattern="^1[3-9]\d{9}$">🇨🇳 +86</option>
+                                                                    <option value="+49" data-min="10" data-max="12" data-pattern="^\d{10,12}$">🇩🇪 +49</option>
+                                                                    <option value="+33" data-min="9" data-max="9" data-pattern="^\d{9}$">🇫🇷 +33</option>
+                                                                    <option value="+971" data-min="8" data-max="9" data-pattern="^[2-9]\d{7,8}$">🇦🇪 +971</option>
+                                                                </select>
+                                                                <input type="text" name="phonenumber" class="btn-default @error('phonenumber') is-invalid @enderror" id="phone" 
+                                                                       onchange="validatePhoneNumber(); cost_calculator();" 
+                                                                       onkeyup="validatePhoneNumber();"
+                                                                       placeholder="Enter phone number" 
+                                                                       style="flex: 1;"
+                                                                       value="{{ old('phonenumber') ?? (auth()->check() ? auth()->user()->phone : '') }}">
+                                                                <input type="hidden" name="full_phone" id="full_phone" value="">
+                                                            </div>
+                                                            <small id="phone-help" class="form-text text-muted" style="margin-top: 5px;"></small>
+                                                            <small id="phone-error" class="form-text" style="color: #d70303; margin-top: 5px; display: none;"></small>
                                                             @error('phonenumber')
                                                             <span class="invalid-feedback" role="alert" style="color: #d70303;">
                                                                 <strong>{{ $message }}</strong>
@@ -726,7 +750,7 @@
                 document.getElementById("num_of_rum_display3").innerHTML = document.getElementById("num_of_rooms").value;
                 document.getElementById("name_display").innerHTML = document.getElementById("first_name").value + " " + document.getElementById("last_name").value;
                 document.getElementById("email_display").innerHTML = document.getElementById("user_email").value;
-                document.getElementById("phone_display").innerHTML = document.getElementById("phone").value;
+                document.getElementById("phone_display").innerHTML = document.getElementById("full_phone").value || document.getElementById("phone").value;
 
             }
             else if(rooms != '' && selectedroom == 'Superior Room (Double)'){
@@ -1036,6 +1060,149 @@
             $("#checkout_date").keyup(cost_calculator);
             $("#checkin_date").keyup(cost_calculator);
             $("#checkin_date").keyup(next_date);
+            
+            // Initialize phone validation on page load
+            updatePhoneValidation();
+        });
+
+        // Phone validation functions
+        function updatePhoneValidation() {
+            const countrySelect = document.getElementById('country_code');
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const countryCode = selectedOption.value;
+            const minLength = selectedOption.getAttribute('data-min');
+            const maxLength = selectedOption.getAttribute('data-max');
+            
+            const helpText = document.getElementById('phone-help');
+            const phoneInput = document.getElementById('phone');
+            
+            // Update help text based on selected country
+            let example = '';
+            switch(countryCode) {
+                case '+234': // Nigeria
+                    example = 'Example: 8012345678';
+                    break;
+                case '+1': // USA
+                    example = 'Example: 2125551234';
+                    break;
+                case '+44': // UK
+                    example = 'Example: 2012345678';
+                    break;
+                case '+233': // Ghana
+                    example = 'Example: 241234567';
+                    break;
+                case '+27': // South Africa
+                    example = 'Example: 821234567';
+                    break;
+                case '+254': // Kenya
+                    example = 'Example: 712345678';
+                    break;
+                case '+256': // Uganda
+                    example = 'Example: 712345678';
+                    break;
+                case '+91': // India
+                    example = 'Example: 9876543210';
+                    break;
+                case '+86': // China
+                    example = 'Example: 13812345678';
+                    break;
+                case '+49': // Germany
+                    example = 'Example: 1751234567';
+                    break;
+                case '+33': // France
+                    example = 'Example: 612345678';
+                    break;
+                case '+971': // UAE
+                    example = 'Example: 501234567';
+                    break;
+                default:
+                    example = `Enter ${minLength}-${maxLength} digits`;
+            }
+            
+            helpText.textContent = `${example} (${minLength}-${maxLength} digits)`;
+            
+            // Clear previous validation
+            const errorText = document.getElementById('phone-error');
+            errorText.style.display = 'none';
+            phoneInput.style.border = '';
+            
+            // Validate current value if present
+            if (phoneInput.value) {
+                validatePhoneNumber();
+            }
+            
+            // Update full phone number
+            updateFullPhoneNumber();
+        }
+
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phone');
+            const countrySelect = document.getElementById('country_code');
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const errorText = document.getElementById('phone-error');
+            
+            const phoneNumber = phoneInput.value.replace(/\D/g, ''); // Remove all non-digits
+            const minLength = parseInt(selectedOption.getAttribute('data-min'));
+            const maxLength = parseInt(selectedOption.getAttribute('data-max'));
+            const pattern = new RegExp(selectedOption.getAttribute('data-pattern'));
+            
+            let isValid = true;
+            let errorMessage = '';
+            
+            if (phoneNumber.length === 0) {
+                // Empty field - clear validation
+                phoneInput.style.border = '';
+                errorText.style.display = 'none';
+                updateFullPhoneNumber();
+                return true;
+            }
+            
+            if (phoneNumber.length < minLength) {
+                isValid = false;
+                errorMessage = `Phone number too short. Minimum ${minLength} digits required.`;
+            } else if (phoneNumber.length > maxLength) {
+                isValid = false;
+                errorMessage = `Phone number too long. Maximum ${maxLength} digits allowed.`;
+            } else if (!pattern.test(phoneNumber)) {
+                isValid = false;
+                errorMessage = 'Invalid phone number format for selected country.';
+            }
+            
+            if (isValid) {
+                phoneInput.style.border = '2px solid #28a745';
+                errorText.style.display = 'none';
+            } else {
+                phoneInput.style.border = '2px solid #dc3545';
+                errorText.textContent = errorMessage;
+                errorText.style.display = 'block';
+            }
+            
+            updateFullPhoneNumber();
+            return isValid;
+        }
+
+        function updateFullPhoneNumber() {
+            const phoneInput = document.getElementById('phone');
+            const countrySelect = document.getElementById('country_code');
+            const fullPhoneInput = document.getElementById('full_phone');
+            
+            const phoneNumber = phoneInput.value.replace(/\D/g, ''); // Remove all non-digits
+            const countryCode = countrySelect.value;
+            
+            if (phoneNumber) {
+                fullPhoneInput.value = countryCode + phoneNumber;
+            } else {
+                fullPhoneInput.value = '';
+            }
+        }
+
+        // Format phone input to only allow numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                // Allow only numbers
+                this.value = this.value.replace(/\D/g, '');
+            });
         });
 
 
