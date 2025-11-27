@@ -69,6 +69,479 @@
         table tr.tr td:first-child::before {
             content: counter(row-num) ". ";
         }
+        
+        /* Modern Nike Lake Navigation Styles */
+        :root {
+            --nike-orange: #FF8300;
+            --nike-orange-light: rgba(255, 131, 0, 0.1);
+            --nike-orange-hover: #e6750a;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --bg-white: #ffffff;
+            --shadow-light: 0 2px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 4px 25px rgba(0, 0, 0, 0.15);
+            --border-light: rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nike-navbar {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        /* Brand Logo */
+        .nav-brand .brand-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            height: 45px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Desktop Navigation */
+        .nav-desktop {
+            display: flex;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: 25px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 131, 0, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--nike-orange);
+            background: var(--nike-orange-light);
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .nav-item.active .nav-link {
+            color: var(--nike-orange);
+            background: var(--nike-orange-light);
+            box-shadow: 0 2px 8px rgba(255, 131, 0, 0.2);
+        }
+
+        .dropdown-icon {
+            margin-left: 8px;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .nav-dropdown:hover .dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Enhanced Dropdown Panels */
+        .dropdown-panel {
+            position: absolute;
+            top: calc(100% + 15px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-white);
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-10px);
+            transition: var(--transition);
+            min-width: 280px;
+            z-index: 1000;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .dropdown-panel::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-bottom-color: var(--bg-white);
+        }
+
+        .nav-dropdown:hover .dropdown-panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-content {
+            padding: 15px 0;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .dropdown-item:hover {
+            background: var(--nike-orange-light);
+            color: var(--nike-orange);
+            text-decoration: none;
+            border-left-color: var(--nike-orange);
+            transform: translateX(5px);
+        }
+
+        .item-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .item-desc {
+            font-size: 12px;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover .item-desc {
+            color: var(--nike-orange);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: var(--nike-orange-light);
+        }
+
+        .hamburger {
+            width: 24px;
+            height: 18px;
+            position: relative;
+        }
+
+        .hamburger .line {
+            width: 100%;
+            height: 3px;
+            background: var(--nike-orange);
+            position: absolute;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .line1 { top: 0; }
+        .line2 { top: 7px; }
+        .line3 { top: 14px; }
+
+        .mobile-menu-toggle.active .line1 {
+            transform: translateY(7px) rotate(45deg);
+            background: var(--nike-orange-hover);
+        }
+
+        .mobile-menu-toggle.active .line2 {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .line3 {
+            transform: translateY(-7px) rotate(-45deg);
+            background: var(--nike-orange-hover);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            max-width: 85vw;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--bg-white) 0%, #f8f9fa 100%);
+            box-shadow: var(--shadow-medium);
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1002;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            padding: 25px 20px;
+            border-bottom: 2px solid var(--nike-orange-light);
+            background: linear-gradient(135deg, var(--nike-orange-light) 0%, transparent 100%);
+        }
+
+        .mobile-menu-header h3 {
+            margin: 0;
+            color: var(--nike-orange);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--nike-orange);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-close:hover {
+            background: var(--nike-orange-light);
+            transform: rotate(90deg);
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mobile-nav-item {
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mobile-nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 3px;
+            background: var(--nike-orange);
+            transition: width 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--nike-orange-light);
+            color: var(--nike-orange);
+            text-decoration: none;
+            padding-left: 25px;
+        }
+
+        .mobile-nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-nav-item.active .mobile-nav-link {
+            background: var(--nike-orange-light);
+            color: var(--nike-orange);
+            border-left: 4px solid var(--nike-orange);
+        }
+
+        .mobile-dropdown-icon {
+            font-size: 14px;
+            color: var(--nike-orange);
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .mobile-nav-item.dropdown-open .mobile-dropdown-icon {
+            transform: rotate(180deg);
+        }
+
+        .mobile-dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            background: var(--nike-orange-light);
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0;
+        }
+
+        .mobile-dropdown-menu.active {
+            max-height: 300px;
+            padding: 10px 0;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-dropdown-item {
+            padding: 18px 25px 18px 45px;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: block;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(255, 131, 0, 0.1);
+            position: relative;
+        }
+
+        .mobile-dropdown-item::before {
+            content: '▸';
+            position: absolute;
+            left: 25px;
+            color: var(--nike-orange);
+            transition: var(--transition);
+        }
+
+        .mobile-dropdown-item:hover {
+            background: rgba(255, 131, 0, 0.2);
+            color: var(--nike-orange);
+            text-decoration: none;
+            padding-left: 50px;
+        }
+
+        .mobile-dropdown-item:hover::before {
+            transform: translateX(5px);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-desktop {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-container {
+                height: 70px;
+            }
+            
+            .brand-logo {
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 10px;
+                height: 60px;
+            }
+            
+            .mobile-menu {
+                width: 100%;
+                max-width: 100vw;
+            }
+            
+            .brand-logo {
+                height: 30px;
+            }
+        }
+
+        /* Scroll Enhancement */
+        .nike-navbar.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
     </style>
     {{-- @vite('resources/css/app.css') --}}
 </head>
@@ -78,7 +551,7 @@
 
     @yield('slider')
     <!-- Main header start -->
-    <header class="main-header main-header-2 main-header-3" style="background-color: #FFFFFF;">
+    <header class="main-header main-header-2 main-header-3">
         <!-- Top header start -->
         {{-- <header class="top-header top-header-3 hidden-xs" id="">
         <div class="container" style="display:block;">
@@ -110,95 +583,251 @@
         </div>
     </header> --}}
     <!-- Top header end -->
-    <div class="container" style="width:100%;">
-        <nav class="navbar navbar-default" style="display: flex; justify-content: space-between;">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navigation" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span style="color:#00c2f9;font-size:7px;position:relative;top:-6px;"></span>
-                </button>
-                <a href="{{ url('/') }}" class="logo">
-                    <img src="{{asset('img/logos/logo.png')}}" alt="logo" />
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="navbar-collapse collapse" role="navigation" aria-expanded="true" id="app-navigation">
-                <ul class="nav navbar-nav">
-                    <li class="@php if (isset($page) && $page == 'home'){echo 'active';} @endphp">
-                        <a href="{{ url('/') }}">
-                            Home
-                        </a>
-                    </li>
-
-                    <li class="dropdown @php if (isset($page) && $page == 'about'){echo 'active';} @endphp">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                            About Us<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/about') }}">Who We Are</a></li>
-                            <li><a href="{{ url('/facilities') }}">Our Facilities</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown @php if (isset($page) && $page == 'rooms'){echo 'active';} @endphp">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                            Rooms<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/superior') }}">Superior Room (King Size Bed)</a></li>
-                            <li><a href="{{ url('/superior_double') }}">Superior Room(Double) (King Size Bed)</a></li>
-                            <li><a href="{{ url('/executive') }}">Executive Suite (King Size Bed)</a></li>
-                            <li><a href="{{ url('/diplomatic') }}">Diplomatic Suite (King Size Bed)</a></li>
-                            <li><a href="{{ url('/presidential') }}">Presidential Suite (King Size Bed)</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown @php if (isset($page) && $page == 'features'){echo 'active';} @endphp">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                            Eventives<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/conferencing') }}">Conferencing &amp; Event Venues</a></li>
-                            <li><a href="{{ url('/packages') }}">Day Delegate Packages</a></li>
-                            <li><a href="{{ url('/menus') }}">Meals &amp; Menus</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="@php if (isset($page) && $page == 'gallery'){echo 'active';} @endphp">
-                        <a href="{{ url('/gallery') }}" aria-expanded="false">
-                            Gallery
-                        </a>
-                    </li>
-
-                    {{--<li class="@php if (isset($page) && $page == 'blog'){echo 'active';} @endphp">
-                            <a href="{{ url('/blog') }}" aria-expanded="false">
-                    Blog
+    <div class="" style="width:100vw;">
+        <!-- Modern Redesigned Navigation -->
+        <nav class="nike-navbar" id="mainNavbar">
+            <div class="nav-container">
+                <!-- Brand Logo -->
+                <div class="nav-brand">
+                    <a href="{{ url('/') }}" class="brand-link">
+                        <img src="{{asset('img/logos/logo.png')}}" alt="Nike Lake Resort" class="brand-logo" />
                     </a>
-                    </li>--}}
+                </div>
 
-                    <li class="dropdown @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
-                        <a tabindex="0" data-toggle="dropdown" data-submenu="" aria-expanded="false">
-                            Book a Reservation<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ url('/booking') }}">Rooms &amp; Suites</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#conference">Conferencing &amp; Event</a></li>
-                        </ul>
-                    </li>
+                <!-- Desktop Navigation -->
+                <div class="nav-desktop" id="desktopNav">
+                    <ul class="nav-menu">
+                        <li class="nav-item @php if (isset($page) && $page == 'home'){echo 'active';} @endphp">
+                            <a href="{{ url('/') }}" class="nav-link">
+                                <span>Home</span>
+                            </a>
+                        </li>
 
-                    <li class="dropdown @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
-                        <a href="{{ url('/contact') }}" aria-expanded="false">
-                            Contact Us
-                        </a>
-                    </li>
-                </ul>
+                        <li class="nav-item nav-dropdown @php if (isset($page) && $page == 'about'){echo 'active';} @endphp">
+                            <a href="#" class="nav-link dropdown-trigger">
+                                <span>About Us</span>
+                                <i class="fa fa-chevron-down dropdown-icon"></i>
+                            </a>
+                            <div class="dropdown-panel">
+                                <div class="dropdown-content">
+                                    <a href="{{ url('/about') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Who We Are</span>
+                                            <span class="item-desc">Learn about our story</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/facilities') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Our Facilities</span>
+                                            <span class="item-desc">Explore our amenities</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item nav-dropdown @php if (isset($page) && $page == 'rooms'){echo 'active';} @endphp">
+                            <a href="#" class="nav-link dropdown-trigger">
+                                <span>Rooms</span>
+                                <i class="fa fa-chevron-down dropdown-icon"></i>
+                            </a>
+                            <div class="dropdown-panel">
+                                <div class="dropdown-content">
+                                    <a href="{{ url('/superior') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Superior Room</span>
+                                            <span class="item-desc">King Size Bed</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/superior_double') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Superior Room (Double)</span>
+                                            <span class="item-desc">King Size Bed</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/executive') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Executive Suite</span>
+                                            <span class="item-desc">King Size Bed</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/diplomatic') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Diplomatic Suite</span>
+                                            <span class="item-desc">King Size Bed</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/presidential') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Presidential Suite</span>
+                                            <span class="item-desc">King Size Bed</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item nav-dropdown @php if (isset($page) && $page == 'features'){echo 'active';} @endphp">
+                            <a href="#" class="nav-link dropdown-trigger">
+                                <span>Events</span>
+                                <i class="fa fa-chevron-down dropdown-icon"></i>
+                            </a>
+                            <div class="dropdown-panel">
+                                <div class="dropdown-content">
+                                    <a href="{{ url('/conferencing') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Conference & Events</span>
+                                            <span class="item-desc">Professional venues</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/packages') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Day Packages</span>
+                                            <span class="item-desc">Delegate packages</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ url('/menus') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Meals & Menus</span>
+                                            <span class="item-desc">Dining options</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item @php if (isset($page) && $page == 'gallery'){echo 'active';} @endphp">
+                            <a href="{{ url('/gallery') }}" class="nav-link">
+                                <span>Gallery</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item nav-dropdown @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
+                            <a href="#" class="nav-link dropdown-trigger">
+                                <span>Book Now</span>
+                                <i class="fa fa-chevron-down dropdown-icon"></i>
+                            </a>
+                            <div class="dropdown-panel">
+                                <div class="dropdown-content">
+                                    <a href="{{ url('/booking') }}" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Rooms & Suites</span>
+                                            <span class="item-desc">Book your stay</span>
+                                        </div>
+                                    </a>
+                                    <a href="#" data-toggle="modal" data-target="#conference" class="dropdown-item">
+                                        <div class="item-content">
+                                            <span class="item-title">Conference & Event</span>
+                                            <span class="item-desc">Book events</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
+                            <a href="{{ url('/contact') }}" class="nav-link">
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation">
+                    <div class="hamburger">
+                        <span class="line line1"></span>
+                        <span class="line line2"></span>
+                        <span class="line line3"></span>
+                    </div>
+                </button>
             </div>
-
-            <!-- /.navbar-collapse -->
-            <!-- /.container -->
+        </nav>
+            
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="nav-brand">
+                    <a href="{{ url('/') }}" class="brand-link">
+                        <img src="{{asset('img/logos/logo.png')}}" alt="Nike Lake Resort" class="brand-logo" />
+                    </a>
+                </div>
+                <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'home'){echo 'active';} @endphp">
+                    <a href="{{ url('/') }}" class="mobile-nav-link">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'about'){echo 'active';} @endphp">
+                    <div class="mobile-nav-link mobile-dropdown-toggle">
+                        About Us
+                        <i class="fa fa-chevron-down mobile-dropdown-icon"></i>
+                    </div>
+                    <div class="mobile-dropdown-menu">
+                        <a href="{{ url('/about') }}" class="mobile-dropdown-item">Who We Are</a>
+                        <a href="{{ url('/facilities') }}" class="mobile-dropdown-item">Our Facilities</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'rooms'){echo 'active';} @endphp">
+                    <div class="mobile-nav-link mobile-dropdown-toggle">
+                        Rooms
+                        <i class="fa fa-chevron-down mobile-dropdown-icon"></i>
+                    </div>
+                    <div class="mobile-dropdown-menu">
+                        <a href="{{ url('/superior') }}" class="mobile-dropdown-item">Superior Room</a>
+                        <a href="{{ url('/superior_double') }}" class="mobile-dropdown-item">Superior Room (Double)</a>
+                        <a href="{{ url('/executive') }}" class="mobile-dropdown-item">Executive Suite</a>
+                        <a href="{{ url('/diplomatic') }}" class="mobile-dropdown-item">Diplomatic Suite</a>
+                        <a href="{{ url('/presidential') }}" class="mobile-dropdown-item">Presidential Suite</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'features'){echo 'active';} @endphp">
+                    <div class="mobile-nav-link mobile-dropdown-toggle">
+                        Events
+                        <i class="fa fa-chevron-down mobile-dropdown-icon"></i>
+                    </div>
+                    <div class="mobile-dropdown-menu">
+                        <a href="{{ url('/conferencing') }}" class="mobile-dropdown-item">Conference & Events</a>
+                        <a href="{{ url('/packages') }}" class="mobile-dropdown-item">Day Packages</a>
+                        <a href="{{ url('/menus') }}" class="mobile-dropdown-item">Meals & Menus</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'gallery'){echo 'active';} @endphp">
+                    <a href="{{ url('/gallery') }}" class="mobile-nav-link">
+                        Gallery
+                    </a>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'booking'){echo 'active';} @endphp">
+                    <div class="mobile-nav-link mobile-dropdown-toggle">
+                        Book Now
+                        <i class="fa fa-chevron-down mobile-dropdown-icon"></i>
+                    </div>
+                    <div class="mobile-dropdown-menu">
+                        <a href="{{ url('/booking') }}" class="mobile-dropdown-item">Rooms & Suites</a>
+                        <a href="#" data-toggle="modal" data-target="#conference" class="mobile-dropdown-item">Conference & Event</a>
+                    </div>
+                </li>
+                
+                <li class="mobile-nav-item @php if (isset($page) && $page == 'contact'){echo 'active';} @endphp">
+                    <a href="{{ url('/contact') }}" class="mobile-nav-link">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </div>
         </nav>
 
         <div class="header-search animated fadeInDown" style="width:98%;">
@@ -300,11 +929,11 @@
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <a href="tel:+234 805 055 7000 ">+234 805 055 7000 </a>
+                                    <a href="tel:+234 904 290 3777 ">+234 904 290 3777 </a>
                                 </li>
                                 <li>
                                     <i class="fa fa-phone"></i>
-                                    <a href="tel:+234 805 755 7000">+234 805 755 7000 </a>
+                                    <a href="tel:+234 904 290 3777">+234 904 290 3777 </a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
@@ -677,8 +1306,8 @@
                 </div>
                 <div class="modal-body" align="center">
                     <h4 id=""><b>Contact us for your Conferences & Events Reservation</b></h4>
-                    <p><a href="tel:+23408050557000" class="btn btn-theme btn-lg"><i class="fa fa-phone"></i> +234 805 055 7000</a></p>
-                    <p><a href="https://wa.me/+23408050557000" class="btn btn-theme btn-lg"><i class="fa fa-whatsapp"></i> Chat on WhatsApp</a></p>
+                    <p><a href="tel:+2349042903777" class="btn btn-theme btn-lg"><i class="fa fa-phone"></i> +234 904 290 3777</a></p>
+                    <p><a href="https://wa.me/+2349042903777" class="btn btn-theme btn-lg"><i class="fa fa-whatsapp"></i> Chat on WhatsApp</a></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -860,6 +1489,126 @@
     @endif
 
     <script id="dsq-count-scr" src="//nikelakeresorthotel-com.disqus.com/count.js" async></script>
+
+    <!-- Modern Mobile Navigation JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileClose = document.getElementById('mobileClose');
+            const mobileDropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+            
+            // Toggle mobile menu
+            function toggleMobileMenu() {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            }
+            
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileMenuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.mobile-dropdown.active').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+            
+            // Event listeners
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            }
+            
+            if (mobileClose) {
+                mobileClose.addEventListener('click', closeMobileMenu);
+            }
+            
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Handle mobile dropdowns
+            document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const parentItem = this.parentElement;
+                    const dropdownMenu = parentItem.querySelector('.mobile-dropdown-menu');
+                    const icon = this.querySelector('.mobile-dropdown-icon');
+                    const isOpen = parentItem.classList.contains('dropdown-open');
+                    
+                    // Close all other dropdowns
+                    document.querySelectorAll('.mobile-nav-item.dropdown-open').forEach(item => {
+                        if (item !== parentItem) {
+                            item.classList.remove('dropdown-open');
+                            const otherMenu = item.querySelector('.mobile-dropdown-menu');
+                            const otherIcon = item.querySelector('.mobile-dropdown-icon');
+                            if (otherMenu) otherMenu.classList.remove('active');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (isOpen) {
+                        parentItem.classList.remove('dropdown-open');
+                        if (dropdownMenu) dropdownMenu.classList.remove('active');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        parentItem.classList.add('dropdown-open');
+                        if (dropdownMenu) dropdownMenu.classList.add('active');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+            
+            // Close menu when clicking on links (except dropdown toggles)
+            document.querySelectorAll('.mobile-nav-link:not(.mobile-dropdown-toggle)').forEach(link => {
+                link.addEventListener('click', function() {
+                    // Small delay to allow navigation
+                    setTimeout(closeMobileMenu, 100);
+                });
+            });
+            
+            // Close menu when clicking on dropdown items
+            document.querySelectorAll('.mobile-dropdown-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Small delay to allow navigation
+                    setTimeout(closeMobileMenu, 150);
+                });
+            });
+            
+            // Close menu on window resize if desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Mobile menu is only active on mobile devices
+            // Desktop functionality remains unchanged
+        });
+    </script>
 
 </body>
 
