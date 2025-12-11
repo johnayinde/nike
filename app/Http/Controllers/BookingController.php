@@ -86,7 +86,7 @@ class BookingController extends Controller
 
         // Check room availability using the new dynamic system
         $roomGroup = RoomGroup::where('name', $data['selected_room_input'])->first();
-        
+
         if (!$roomGroup) {
             return redirect('/booking')->with('nothing', 'Invalid room type selected. Please try again.');
         }
@@ -100,15 +100,14 @@ class BookingController extends Controller
 
         if (!$availability['available']) {
             return redirect('/booking')->with('nothing', 'Sorry, the room you searched is currently unavailable. ' . $availability['message'] . '. Please adjust your specifications and try again.');
-        }
-        else {
+        } else {
 
             if (isset(Auth::User()->id)) {
                 $user_id = Auth::User()->id;
             } else {
                 // Check if user exists
                 $existingUser = User::where('email', $data['email'])->first();
-                
+
                 if ($existingUser) {
                     // User exists, update their information
                     $updateData = [
@@ -116,12 +115,12 @@ class BookingController extends Controller
                         'last_name' => $data['lastname'],
                         'phone' => !empty($data['full_phone']) ? $data['full_phone'] : $data['phonenumber'],
                     ];
-                    
+
                     // Only update password if a new one is provided
                     if (!empty($data['user_password'])) {
                         $updateData['password'] = Hash::make($data['user_password']);
                     }
-                    
+
                     $existingUser->update($updateData);
                     $user_id = $existingUser->id;
                 } else {
@@ -133,7 +132,7 @@ class BookingController extends Controller
                         'phone' => !empty($data['full_phone']) ? $data['full_phone'] : $data['phonenumber'],
                         'password' => Hash::make($data['user_password'] ?: 'defaultpassword123'),
                     ]);
-                    
+
                     $user_id = $user->id;
                 }
             }
@@ -151,6 +150,8 @@ class BookingController extends Controller
                 'order_status' => $order_status,
                 'posted' => $posted,
                 'ref_num' => $data['ref'],
+                'tracking_link_id' => session('room_tracking_link_id'),
+                'traffic_source' => session('room_tracking_ref'),
             ]);
 
             Log::info('Booking created, redirecting to payment', [
@@ -331,6 +332,22 @@ class BookingController extends Controller
 
             Log::info('Payment successful for booking: ' . $booking->ref_num);
 
+            // Update tracking link statistics if this booking came from a tracking link
+            if ($booking->tracking_link_id) {
+                $trackingLink = \App\Models\RoomTrackingLink::find($booking->tracking_link_id);
+                if ($trackingLink) {
+                    $checkin = Carbon::parse($booking->checkin);
+                    $checkout = Carbon::parse($booking->checkout);
+                    $nights = $checkin->diffInDays($checkout);
+
+                    $trackingLink->recordBooking(
+                        $booking->amount,
+                        $nights,
+                        $booking->num_of_rooms
+                    );
+                }
+            }
+
             $this->sendConfirmationEmails($booking);
 
             // Redirect to success page
@@ -338,10 +355,6 @@ class BookingController extends Controller
                 'booking' => $booking,
                 'user' => $booking->user,
             ]);
-            
-            Log::info('Payment successful for booking: ' . $booking->ref_num);
-            
-            return redirect('/booking')->with('success', 'Your reservation has been booked successfully! Please check your email for confirmation. Thanks');
         } else {
             // Payment failed or invalid
             Log::warning('Payment validation failed', [

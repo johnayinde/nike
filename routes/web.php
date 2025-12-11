@@ -84,7 +84,8 @@ Route::get('/admin/gallery', [GalleryController::class, 'index'])->name('admin.g
 Route::post('/admin/gallery', [GalleryController::class, 'create'])->name('upload_img');
 Route::patch('/admin/update_image/{id}', [GalleryController::class, 'update'])->name('gallery_update');
 Route::get('admin/delete_img/{id}/{image}', [GalleryController::class, 'destroy'])->name('delete_img');
-Route::get('/booking', [BookingController::class, 'index'])->name('booking');
+Route::get('/booking', [BookingController::class, 'index'])
+    ->middleware('CaptureRoomTrackingLink')->name('booking');
 Route::match(['GET', 'POST'], '/payment', [BookingController::class, 'initialize'])->name('payment');
 Route::get('/payment/callback', [BookingController::class, 'callback'])->name('payment.callback');
 
@@ -123,3 +124,15 @@ Route::patch('/admin/cancel_booking/{id}', [AdminBookingController::class, 'canc
 Route::patch('/admin/unpay_booking/{id}', [AdminBookingController::class, 'unpay'])->name('unpay_booking');
 Route::get('/admin/messages', [ContactController::class, 'index'])->name('messages');
 Route::get('/admin/delete_msg/{id}', [ContactController::class, 'destroy'])->name('delete_msg');
+
+// Admin routes for managing tracking links
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin/room-tracking')->group(function () {
+        Route::get('/', [RoomTrackingLinkController::class, 'index'])->name('room-tracking.index');
+        Route::post('/', [RoomTrackingLinkController::class, 'store'])->name('room-tracking.store');
+        Route::get('/analytics', [RoomTrackingLinkController::class, 'analytics'])->name('room-tracking.analytics');
+        Route::get('/{link_id}', [RoomTrackingLinkController::class, 'show'])->name('room-tracking.show');
+        Route::put('/{link_id}', [RoomTrackingLinkController::class, 'update'])->name('room-tracking.update');
+        Route::delete('/{link_id}', [RoomTrackingLinkController::class, 'destroy'])->name('room-tracking.destroy');
+    });
+});

@@ -45,6 +45,11 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public function trackingLink()
+    {
+        return $this->belongsTo(RoomTrackingLink::class);
+    }
     public function room_group()
     {
         return $this->belongsTo(RoomGroup::class, 'room', 'name');
@@ -98,12 +103,12 @@ class Booking extends Model
 
         if (isset($result->status) && $result->status === true) {
             $paymentLink = $result->authorization_url ?? null;
-            
+
             // Store the payment link in the database
             if ($paymentLink) {
                 $this->update(['payment_link' => $paymentLink]);
             }
-            
+
             return $paymentLink;
         }
 

@@ -80,6 +80,22 @@ class WebhookController extends Controller
 
             Log::info('Payment updated via webhook', ['booking_id' => $booking->id]);
 
+            // Link booking to tracking link if exists
+            if ($booking->tracking_link_id) {
+                $trackingLink = \App\Models\RoomTrackingLink::find($booking->tracking_link_id);
+                if ($trackingLink) {
+                    $checkin = \Carbon\Carbon::parse($booking->checkin);
+                    $checkout = \Carbon\Carbon::parse($booking->checkout);
+                    $nights = $checkin->diffInDays($checkout);
+
+                    $trackingLink->recordBooking(
+                        $booking->amount,
+                        $nights,
+                        $booking->num_of_rooms
+                    );
+                }
+            }
+
             // Send confirmation emails if not already sent
             $this->sendConfirmationEmails($booking);
 
