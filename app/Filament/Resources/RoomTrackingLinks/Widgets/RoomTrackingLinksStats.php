@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\RoomTrackingLinks\Widgets;
 
-use App\Models\Booking;
 use App\Models\RoomTrackingLink;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -20,14 +19,8 @@ class RoomTrackingLinksStats extends StatsOverviewWidget
         $totalNights = $trackingLinks->sum('total_nights_booked');
         $activeLinks = $trackingLinks->where('status', 1)->count();
 
-        // Direct bookings (without tracking)
-        $directBookings = Booking::whereNull('tracking_link_id')
-            ->where('payment_status', 'Paid')
-            ->count();
-
-        $directRevenue = Booking::whereNull('tracking_link_id')
-            ->where('payment_status', 'Paid')
-            ->sum('amount');
+        // Calculate conversion rate
+        $conversionRate = $totalClicks > 0 ? round(($totalBookings / $totalClicks) * 100, 2) : 0;
 
         return [
             Stat::make('Total Clicks', number_format($totalClicks))
@@ -50,10 +43,10 @@ class RoomTrackingLinksStats extends StatsOverviewWidget
                 ->descriptionIcon('heroicon-m-link')
                 ->color('warning'),
 
-            Stat::make('Direct Bookings', number_format($directBookings))
-                ->description('₦' . number_format($directRevenue, 2) . ' revenue')
-                ->descriptionIcon('heroicon-m-globe-alt')
-                ->color('gray'),
+            Stat::make('Conversion Rate', $conversionRate . '%')
+                ->description('Clicks to bookings')
+                ->descriptionIcon('heroicon-m-arrow-trending-up')
+                ->color($conversionRate >= 5 ? 'success' : 'gray'),
         ];
     }
 }
