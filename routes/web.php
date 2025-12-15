@@ -8,6 +8,7 @@ use App\Http\Controllers\BookingPaymentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\GuestsController;
+use App\Http\Controllers\RoomTrackingLinkController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SiteBlogController;
 use App\Http\Controllers\SiteContactController;
