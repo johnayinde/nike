@@ -173,7 +173,7 @@
                                         </div>
                                         <!-- btn -->
                                         <div class="text-center"><br><br>
-                                            <a href="{{url('/booking')}}" data-toggle="modal" data-target="#about_nike" class="btn btn-sm
+                                             <a href="{{url('/booking')}}" class="btn btn-sm
                                             btn-theme">Book A Reservation Now</a>
                                         </div>
                                     </div>
